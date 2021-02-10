@@ -1,6 +1,14 @@
+import 'dart:convert';
+
+import 'package:chinaso_http_package/log_error.dart';
 import 'package:chinaso_ui_package/ShadedText.dart';
 
 import 'package:flutter/material.dart';
+import 'package:home_flutter/http/home_feed_entity.dart';
+import 'generated/json/feed_data_entity_helper.dart';
+import 'generated/json/home_feed_entity_helper.dart';
+import 'http/api_service.dart';
+import 'http/feed_data_entity.dart';
 
 void main() {
   runApp(MyApp());
@@ -53,6 +61,40 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int pageNo=0;
+
+
+  Future getImgResultList(bool isRefresh) {
+    print('http--ss>------getImgResultList');
+    /// 调用
+    ApiInterface.getFeed(
+       pageNo) .then((data) {
+      /// 请求成功 进行成功的逻辑处理
+      print('http--ss>------请求成功');
+      Map<String, dynamic> responseData =  jsonDecode(data);
+     // print('http--ss>------responseData'+responseData["data"].toString());
+
+      Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"]));
+
+      print('http--ss>------responseDataInner'+responseDataInner.toString());
+
+      HomeFeedEntity entity=new HomeFeedEntity();
+      homeFeedEntityFromJson(entity,responseDataInner);
+
+      print('http--ss>------homeFeedEntityFromJson'+entity.toplist[0].titleCN);
+      //print("获取feed数据-"+entityList[0].titleCN);
+    }).catchError((errorMsg) {
+      /// 请求失败 dio异常
+      print('http--ss>------请求失败'+errorMsg.toString());
+      /// 请求失败  进入了自定义的error拦截
+      if (errorMsg is LogicError) {
+        LogicError logicError = errorMsg;
+
+      } else {
+
+      }
+    });
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -62,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      getImgResultList(false);
     });
   }
 
