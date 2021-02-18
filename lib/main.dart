@@ -9,13 +9,22 @@ import 'package:home_flutter/page/page_home.dart';
 import 'package:home_flutter/page/page_hot.dart';
 import 'package:home_flutter/page/page_media.dart';
 import 'package:home_flutter/string_util.dart';
+import 'package:weather/loc_baidu.dart';
+import 'package:weather/weather.dart';
 import 'generated/json/feed_data_entity_helper.dart';
 import 'generated/json/home_feed_entity_helper.dart';
 import 'http/api_service.dart';
 import 'http/feed_data_entity.dart';
 
 void main() {
-  runApp(MyApp());
+  //runApp(MyApp());
+
+  runApp(new MaterialApp(
+    home: new Home(),
+    routes: {
+      "/location/basicloc": (BuildContext context) => new BasicLoc(), // 基础定位
+    },
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -56,8 +65,7 @@ class _MyAppState extends State<MyApp> {
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), title: Text(Strings.tabIcon1)),
             BottomNavigationBarItem(icon: Icon(Icons.list), title: Text(Strings.tabIcon2)),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.people), title: Text(Strings.tabIcon3)),
+            BottomNavigationBarItem(icon: Icon(Icons.people), title: Text(Strings.tabIcon3)),
           ],
         ),
       ),

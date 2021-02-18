@@ -32,6 +32,8 @@ dependencies:
     path: ./chinaso_ui_package
   chinaso_http_package:
     path: ./chinaso_http_package
+  weather:
+    path: ./weather
 
 dev_dependencies:
   flutter_test:

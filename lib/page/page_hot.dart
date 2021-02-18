@@ -10,6 +10,7 @@ class HotPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     return PageContent(title:Strings.tabIcon3);
   }
 
