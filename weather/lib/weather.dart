@@ -1,19 +1,101 @@
 library weather;
 
+import 'dart:convert';
+
+import 'package:chinaso_http_package/log_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather/city_list_entity.dart';
+import 'package:weather/json/city_list_entity_helper.dart';
+import 'package:weather/json/weather_entity_helper.dart';
 
-class Home extends StatefulWidget {
+import 'package:weather/weather_api.dart';
+import 'package:weather/weather_entity.dart';
+
+
+class WeatherHome extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomeState();
+    return _WeatherHomeState();
   }
 }
 
-class _HomeState extends State<Home> {
+class _WeatherHomeState extends State<WeatherHome> {
+  String imageUrl;
+  String  city="北京";
+  String weather=" ";
+  WeatherReal entityReal=new WeatherReal();
+  Future getCityList() {
+
+    /// 调用
+    WeatherApiInterface.getCityList(
+        "py") .then((data) {
+      /// 请求成功 进行成功的逻辑处理
+      print('http--ss>------请求成功');
+      Map<String, dynamic> responseData =  jsonDecode(data);
+
+      Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"]));
+      CityListEntity entity=new CityListEntity();
+      cityListEntityFromJson(entity,responseDataInner);
+
+    }).catchError((errorMsg) {
+      /// 请求失败 dio异常
+      print('http--ss>------请求失败'+errorMsg.toString());
+      /// 请求失败  进入了自定义的error拦截
+      if (errorMsg is LogicError) {
+        LogicError logicError = errorMsg;
+
+      } else {
+
+      }
+    });
+  }
+
+
+  Future getWeather(String  city) {
+
+    /// 调用
+    WeatherApiInterface.getWeather(
+        city) .then((data) {
+      /// 请求成功 进行成功的逻辑处理
+      print('http--ss>------请求成功');
+      Map<String, dynamic> responseData =  jsonDecode(data);
+
+      Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"]));
+      print('http--weathers>------responseDataInner'+ responseDataInner.toString());
+
+      WeatherEntity entity=new WeatherEntity();
+      weatherEntityFromJson(entity,responseDataInner);
+      city=entity.city;
+      print('http--weathers>------real请求成功'+responseDataInner["real"].toString());
+
+
+      weatherRealFromJson(entityReal,jsonDecode(jsonEncode(responseDataInner["real"])));
+      imageUrl=entityReal.weatherIcon[0];
+      weather=entityReal.weather;
+      print('http--weathers>------real解析'+imageUrl);
+      setState(() {
+
+      });
+
+    }).catchError((errorMsg) {
+      /// 请求失败 dio异常
+      print('http--ss>------请求失败'+errorMsg);
+      /// 请求失败  进入了自定义的error拦截
+      if (errorMsg is LogicError) {
+        LogicError logicError = errorMsg;
+
+      } else {
+
+      }
+    });
+  }
+
+
   @override
   void initState() {
     super.initState();
+    getWeather("北京市");
   }
 
   @override
@@ -33,34 +115,39 @@ class _HomeState extends State<Home> {
 
   Widget buildListTile(
       BuildContext context, String title, String subtitle, String url) {
+
     return new ListTile(
       onTap: () {
         Navigator.of(context).pushNamed(url);
       },
       isThreeLine: true,
       dense: false,
-      leading: null,
+      leading: CircleAvatar(
+
+        backgroundImage: NetworkImage(imageUrl),
+      ),
       title: new Text(title),
       subtitle: new Text(subtitle),
       trailing: new Icon(
         Icons.arrow_right,
         color: Colors.blueAccent,
       ),
+
     );
   }
 
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('百度地图定位flutter插件demo'),
-        ),
+
         body: new Scrollbar(
             child: new ListView(
-              children: render(context, [
+              children:
+                  render(context, [
                 {
-                  "title": "基础定位",
-                  "subtitle": "能够返回经纬度、地址、位置描述、周边poi等各类定位结果信息",
+                  "title": city,
+                  "subtitle": weather,
                   "url": "/location/basicloc"
 
                 },

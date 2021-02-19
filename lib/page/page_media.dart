@@ -13,7 +13,7 @@ class MediaPage extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     //return PageContent(title:Strings.tabIcon2);
-    return Home();
+    return WeatherHome();
   }
 
 }

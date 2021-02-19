@@ -45,17 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
       /// 请求成功 进行成功的逻辑处理
       print('http--ss>------请求成功');
       Map<String, dynamic> responseData =  jsonDecode(data);
-      // print('http--ss>------responseData'+responseData["data"].toString());
 
       Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"]));
-
-      print('http--ss>------responseDataInner'+responseDataInner.toString());
-
       HomeFeedEntity entity=new HomeFeedEntity();
       homeFeedEntityFromJson(entity,responseDataInner);
 
       print('http--ss>------homeFeedEntityFromJson'+entity.toplist[0].titleCN);
-      //print("获取feed数据-"+entityList[0].titleCN);
     }).catchError((errorMsg) {
       /// 请求失败 dio异常
       print('http--ss>------请求失败'+errorMsg.toString());
@@ -89,6 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
+    getImgResultList(false);
 
     return NestedScrollView(
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {

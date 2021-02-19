@@ -1,4 +1,6 @@
-import 'package:home_flutter/http/home_feed_entity.dart';
+
+
+import 'package:weather/home_feed_entity.dart';
 
 homeFeedEntityFromJson(HomeFeedEntity data, Map<String, dynamic> json) {
 	if (json['pageNo'] != null) {
