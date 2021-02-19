@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
 
-import '../string_util.dart';
+import '../utils/string_util.dart';
 import 'page_default.dart';
 import 'dart:convert';
 

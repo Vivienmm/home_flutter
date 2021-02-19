@@ -62,8 +62,10 @@ class _HomeState extends State<Home> {
                   "title": "基础定位",
                   "subtitle": "能够返回经纬度、地址、位置描述、周边poi等各类定位结果信息",
                   "url": "/location/basicloc"
+
                 },
               ]),
+
             )));
   }
 }

@@ -8,7 +8,7 @@ import 'package:home_flutter/http/home_feed_entity.dart';
 import 'package:home_flutter/page/page_home.dart';
 import 'package:home_flutter/page/page_hot.dart';
 import 'package:home_flutter/page/page_media.dart';
-import 'package:home_flutter/string_util.dart';
+import 'package:home_flutter/utils/string_util.dart';
 import 'package:weather/loc_baidu.dart';
 import 'package:weather/weather.dart';
 import 'generated/json/feed_data_entity_helper.dart';
@@ -17,18 +17,19 @@ import 'http/api_service.dart';
 import 'http/feed_data_entity.dart';
 
 void main() {
-  //runApp(MyApp());
+  runApp(MyApp());
 
-  runApp(new MaterialApp(
-    home: new Home(),
-    routes: {
-      "/location/basicloc": (BuildContext context) => new BasicLoc(), // 基础定位
-    },
-  ));
+//  runApp(new MaterialApp(
+//    home: new Home(),
+//    routes: {
+//      "/location/basicloc": (BuildContext context) => new BasicLoc(), // 基础定位
+//    },
+//  ));
 }
 
 class MyApp extends StatefulWidget {
   MyApp({Key key}) : super(key: key);
+
 
   _MyAppState createState() => _MyAppState();
 }
@@ -69,6 +70,9 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
       ),
+    routes: {
+      "/location/basicloc": (BuildContext context) => new BasicLoc(), // 基础定位
+    }
     );
   }
 }

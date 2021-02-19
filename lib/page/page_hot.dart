@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../string_util.dart';
+import '../utils/string_util.dart';
 import 'page_default.dart';
 
 class HotPage extends StatelessWidget{
