@@ -1,6 +1,6 @@
 
 
-import 'package:weather/weather_entity.dart';
+import 'package:weather/data/weather_entity.dart';
 
 weatherEntityFromJson(WeatherEntity data, Map<String, dynamic> json) {
 	if (json['city'] != null) {

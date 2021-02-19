@@ -5,12 +5,12 @@ import 'dart:convert';
 import 'package:chinaso_http_package/log_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weather/city_list_entity.dart';
+import 'package:weather/data/city_list_entity.dart';
 import 'package:weather/json/city_list_entity_helper.dart';
 import 'package:weather/json/weather_entity_helper.dart';
 
 import 'package:weather/weather_api.dart';
-import 'package:weather/weather_entity.dart';
+import 'package:weather/data/weather_entity.dart';
 
 
 class WeatherHome extends StatefulWidget {
@@ -21,35 +21,11 @@ class WeatherHome extends StatefulWidget {
 }
 
 class _WeatherHomeState extends State<WeatherHome> {
-  String imageUrl;
+  String imageUrl=" ";
   String  city="北京";
   String weather=" ";
   WeatherReal entityReal=new WeatherReal();
-  Future getCityList() {
 
-    /// 调用
-    WeatherApiInterface.getCityList(
-        "py") .then((data) {
-      /// 请求成功 进行成功的逻辑处理
-      print('http--ss>------请求成功');
-      Map<String, dynamic> responseData =  jsonDecode(data);
-
-      Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"]));
-      CityListEntity entity=new CityListEntity();
-      cityListEntityFromJson(entity,responseDataInner);
-
-    }).catchError((errorMsg) {
-      /// 请求失败 dio异常
-      print('http--ss>------请求失败'+errorMsg.toString());
-      /// 请求失败  进入了自定义的error拦截
-      if (errorMsg is LogicError) {
-        LogicError logicError = errorMsg;
-
-      } else {
-
-      }
-    });
-  }
 
 
   Future getWeather(String  city) {
@@ -149,7 +125,6 @@ class _WeatherHomeState extends State<WeatherHome> {
                   "title": city,
                   "subtitle": weather,
                   "url": "/location/basicloc"
-
                 },
               ]),
 

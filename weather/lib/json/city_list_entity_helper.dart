@@ -1,4 +1,4 @@
-import 'package:weather/city_list_entity.dart';
+import 'package:weather/data/city_list_entity.dart';
 
 
 cityListEntityFromJson(CityListEntity data, Map<String, dynamic> json) {
@@ -9,129 +9,129 @@ cityListEntityFromJson(CityListEntity data, Map<String, dynamic> json) {
 		});
 	}
 	if (json['B'] != null) {
-		data.b = new List<CityListB>();
+		data.b = new List<CityListum>();
 		(json['B'] as List).forEach((v) {
-			data.b.add(new CityListB().fromJson(v));
+			data.b.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['C'] != null) {
-		data.c = new List<CityListC>();
+		data.c = new List<CityListum>();
 		(json['C'] as List).forEach((v) {
-			data.c.add(new CityListC().fromJson(v));
+			data.c.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['D'] != null) {
-		data.d = new List<CityListD>();
+		data.d = new List<CityListum>();
 		(json['D'] as List).forEach((v) {
-			data.d.add(new CityListD().fromJson(v));
+			data.d.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['E'] != null) {
-		data.e = new List<CityListE>();
+		data.e = new List<CityListum>();
 		(json['E'] as List).forEach((v) {
-			data.e.add(new CityListE().fromJson(v));
+			data.e.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['F'] != null) {
-		data.f = new List<CityListF>();
+		data.f = new List<CityListum>();
 		(json['F'] as List).forEach((v) {
-			data.f.add(new CityListF().fromJson(v));
+			data.f.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['G'] != null) {
-		data.g = new List<CityListG>();
+		data.g = new List<CityListum>();
 		(json['G'] as List).forEach((v) {
-			data.g.add(new CityListG().fromJson(v));
+			data.g.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['H'] != null) {
-		data.h = new List<CityListH>();
+		data.h = new List<CityListum>();
 		(json['H'] as List).forEach((v) {
-			data.h.add(new CityListH().fromJson(v));
+			data.h.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['J'] != null) {
-		data.j = new List<CityListJ>();
+		data.j = new List<CityListum>();
 		(json['J'] as List).forEach((v) {
-			data.j.add(new CityListJ().fromJson(v));
+			data.j.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['K'] != null) {
-		data.k = new List<CityListK>();
+		data.k = new List<CityListum>();
 		(json['K'] as List).forEach((v) {
-			data.k.add(new CityListK().fromJson(v));
+			data.k.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['L'] != null) {
-		data.l = new List<CityListL>();
+		data.l = new List<CityListum>();
 		(json['L'] as List).forEach((v) {
-			data.l.add(new CityListL().fromJson(v));
+			data.l.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['M'] != null) {
-		data.m = new List<CityListM>();
+		data.m = new List<CityListum>();
 		(json['M'] as List).forEach((v) {
-			data.m.add(new CityListM().fromJson(v));
+			data.m.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['N'] != null) {
-		data.n = new List<CityListN>();
+		data.n = new List<CityListum>();
 		(json['N'] as List).forEach((v) {
-			data.n.add(new CityListN().fromJson(v));
+			data.n.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['P'] != null) {
-		data.p = new List<CityListP>();
+		data.p = new List<CityListum>();
 		(json['P'] as List).forEach((v) {
-			data.p.add(new CityListP().fromJson(v));
+			data.p.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['Q'] != null) {
-		data.q = new List<CityListQ>();
+		data.q = new List<CityListum>();
 		(json['Q'] as List).forEach((v) {
-			data.q.add(new CityListQ().fromJson(v));
+			data.q.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['R'] != null) {
-		data.r = new List<CityListR>();
+		data.r = new List<CityListum>();
 		(json['R'] as List).forEach((v) {
-			data.r.add(new CityListR().fromJson(v));
+			data.r.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['S'] != null) {
-		data.s = new List<CityList>();
+		data.s = new List<CityListum>();
 		(json['S'] as List).forEach((v) {
-			data.s.add(new CityList().fromJson(v));
+			data.s.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['T'] != null) {
-		data.t = new List<CityListT>();
+		data.t = new List<CityListum>();
 		(json['T'] as List).forEach((v) {
-			data.t.add(new CityListT().fromJson(v));
+			data.t.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['W'] != null) {
-		data.w = new List<CityListW>();
+		data.w = new List<CityListum>();
 		(json['W'] as List).forEach((v) {
-			data.w.add(new CityListW().fromJson(v));
+			data.w.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['X'] != null) {
-		data.x = new List<CityListX>();
+		data.x = new List<CityListum>();
 		(json['X'] as List).forEach((v) {
-			data.x.add(new CityListX().fromJson(v));
+			data.x.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['Y'] != null) {
-		data.y = new List<CityListY>();
+		data.y = new List<CityListum>();
 		(json['Y'] as List).forEach((v) {
-			data.y.add(new CityListY().fromJson(v));
+			data.y.add(new CityListum().fromJson(v));
 		});
 	}
 	if (json['Z'] != null) {
-		data.z = new List<CityListZ>();
+		data.z = new List<CityListum>();
 		(json['Z'] as List).forEach((v) {
-			data.z.add(new CityListZ().fromJson(v));
+			data.z.add(new CityListum().fromJson(v));
 		});
 	}
 	return data;

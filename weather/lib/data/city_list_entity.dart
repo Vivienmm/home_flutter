@@ -1,5 +1,6 @@
 
 
+import 'package:azlistview/azlistview.dart';
 import 'package:weather/json/base/json_convert_content.dart';
 import 'package:weather/json/base/json_field.dart';
 
@@ -7,53 +8,62 @@ class CityListEntity with JsonConvert<CityListEntity> {
 	@JSONField(name: "A")
 	List<CityListum> a;
 	@JSONField(name: "B")
-	List<CityListB> b;
+	List<CityListum> b;
 	@JSONField(name: "C")
-	List<CityListC> c;
+	List<CityListum> c;
 	@JSONField(name: "D")
-	List<CityListD> d;
+	List<CityListum> d;
 	@JSONField(name: "E")
-	List<CityListE> e;
+	List<CityListum> e;
 	@JSONField(name: "F")
-	List<CityListF> f;
+	List<CityListum> f;
 	@JSONField(name: "G")
-	List<CityListG> g;
+	List<CityListum> g;
 	@JSONField(name: "H")
-	List<CityListH> h;
+	List<CityListum> h;
 	@JSONField(name: "J")
-	List<CityListJ> j;
+	List<CityListum> j;
 	@JSONField(name: "K")
-	List<CityListK> k;
+	List<CityListum> k;
 	@JSONField(name: "L")
-	List<CityListL> l;
+	List<CityListum> l;
 	@JSONField(name: "M")
-	List<CityListM> m;
+	List<CityListum> m;
 	@JSONField(name: "N")
-	List<CityListN> n;
+	List<CityListum> n;
 	@JSONField(name: "P")
-	List<CityListP> p;
+	List<CityListum> p;
 	@JSONField(name: "Q")
-	List<CityListQ> q;
+	List<CityListum> q;
 	@JSONField(name: "R")
-	List<CityListR> r;
+	List<CityListum> r;
 	@JSONField(name: "S")
-	List<CityList> s;
+	List<CityListum> s;
 	@JSONField(name: "T")
-	List<CityListT> t;
+	List<CityListum> t;
 	@JSONField(name: "W")
-	List<CityListW> w;
+	List<CityListum> w;
 	@JSONField(name: "X")
-	List<CityListX> x;
+	List<CityListum> x;
 	@JSONField(name: "Y")
-	List<CityListY> y;
+	List<CityListum> y;
 	@JSONField(name: "Z")
-	List<CityListZ> z;
+	List<CityListum> z;
 }
 
-class CityListum with JsonConvert<CityListum> {
+class CityListum extends ISuspensionBean with JsonConvert<CityListum>   {
 	String city;
 	String pinyin;
 	String code;
+
+	CityListum({
+		this.city,
+		this.code,
+		this.pinyin,
+	});
+
+	@override
+	String getSuspensionTag() => code;
 }
 
 class CityListB with JsonConvert<CityListB> {

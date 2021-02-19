@@ -1,6 +1,6 @@
 
 
-import 'package:weather/feed_data_entity.dart';
+import 'package:weather/data/feed_data_entity.dart';
 
 feedDataEntityFromJson(FeedDataEntity data, Map<String, dynamic> json) {
 	if (json['pageNo'] != null) {
