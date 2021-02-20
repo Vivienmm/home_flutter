@@ -5,7 +5,7 @@ import 'package:weather/json/base/json_convert_content.dart';
 class FeedDataEntity with JsonConvert<FeedDataEntity> {
 	int pageNo;
 	int pageSize;
-	List<FeedDataToplist> toplist;
+	List<FeedDataResult> toplist;
 	int totalCount;
 	List<FeedDataResult> results;
 }

@@ -1,16 +1,24 @@
+import 'package:chinaso_ui_package/bottom_source_txt.dart';
+import 'package:chinaso_ui_package/title_txt.dart';
 import 'package:flutter/material.dart';
-import 'package:home_flutter/http/home_feed_entity.dart';
 
 class ItemNoImg extends StatefulWidget{
 
- HomeFeedEntityInner itemData;
+  String title;
+  String source;
+  int type;
+  String date;
   ItemNoImg({
     Key key,
-    this.itemData,
-
+    this.title,
+    this.source,
+    this.type,
+    this.date
   }): super(key: key) {
-    this.itemData = this.itemData;
-
+    this.title = this.title;
+    this.source=this.source;
+    this.type=this.type;
+    this.date=this.date;
   }
 
   @override
@@ -33,24 +41,18 @@ class _ItemNoImgState extends State<ItemNoImg> {
         mainAxisSize :MainAxisSize.max,
         children: <Widget>[
           Container(
-            height: 48,
-            child: Text(widget.itemData.titleCN,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 16.0, color: Colors.black,fontWeight:FontWeight.w500)),
+
+            child: TitleText(widget.title,
+            ),
           ),
           Container(
 
-            child: Text(widget.itemData.sourceName,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 11.0, color: Colors.grey)),
-            //  margin: EdgeInsets.only(left: 60),
+            child: BottomText(widget.source,
+               widget.type,
+            widget.date), //  margin: EdgeInsets.only(left: 60),
           )
 
-
         ],
-
 
       ),
 

@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
+import 'package:home_flutter/page/page_feed.dart';
 
 import '../utils/string_util.dart';
 import 'page_default.dart';
@@ -36,34 +37,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int pageNo=0;
 
-
-  Future getImgResultList(bool isRefresh) {
-    print('http--ss>------getImgResultList');
-    /// 调用
-    ApiInterface.getFeed(
-        pageNo) .then((data) {
-      /// 请求成功 进行成功的逻辑处理
-      print('http--ss>------请求成功');
-      Map<String, dynamic> responseData =  jsonDecode(data);
-
-      Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"]));
-      HomeFeedEntity entity=new HomeFeedEntity();
-      homeFeedEntityFromJson(entity,responseDataInner);
-
-      print('http--ss>------homeFeedEntityFromJson'+entity.toplist[0].titleCN);
-    }).catchError((errorMsg) {
-      /// 请求失败 dio异常
-      print('http--ss>------请求失败'+errorMsg.toString());
-      /// 请求失败  进入了自定义的error拦截
-      if (errorMsg is LogicError) {
-        LogicError logicError = errorMsg;
-
-      } else {
-
-      }
-    });
-  }
-
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -72,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
-      getImgResultList(false);
+
     });
   }
 
@@ -83,9 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-
-    getImgResultList(false);
+    // than having to individually change instances of widgets
 
     return NestedScrollView(
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -101,17 +72,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         )];
       },
-      body: ListView.builder(itemBuilder: (BuildContext context,int index){
-        return Container(
-          height: 80,
-          color: Colors.primaries[index % Colors.primaries.length],
-          alignment: Alignment.center,
-          child: Text(
-            '$index',
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        );
-      },itemCount: 20,),
+      body: new FeedNews(),
+//      body: ListView.builder(itemBuilder: (BuildContext context,int index){
+//        return Container(
+//          height: 80,
+//          color: Colors.primaries[index % Colors.primaries.length],
+//          alignment: Alignment.center,
+//          child: Text(
+//            '$index',
+//            style: TextStyle(color: Colors.white, fontSize: 20),
+//          ),
+//        );
+//      },itemCount: 20,),
     );
 //    return Scaffold(
 //      appBar: AppBar(
