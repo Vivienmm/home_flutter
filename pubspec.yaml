@@ -81,3 +81,16 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  assets:
+
+    - assets/bottom_indicator_selected.png
+    - assets/bottom_indicator_unselected.png
+    - assets/channel/channel_app.png
+    - assets/channel/channel_chain.png
+    - assets/channel/channel_eng.png
+    - assets/channel/channel_game.png
+    - assets/channel/channel_img.png
+    - assets/channel/channel_news.png
+    - assets/channel/channel_story.png
+    - assets/channel/channel_video.png
+    - assets/channel/channel_young.png

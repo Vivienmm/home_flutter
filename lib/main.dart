@@ -6,6 +6,7 @@ import 'package:chinaso_ui_package/ShadedText.dart';
 import 'package:flutter/material.dart';
 import 'package:home_flutter/http/city_list_entity.dart';
 import 'package:home_flutter/http/home_feed_entity.dart';
+import 'package:home_flutter/page/page_channel.dart';
 import 'package:home_flutter/page/page_home.dart';
 import 'package:home_flutter/page/page_hot.dart';
 import 'package:home_flutter/page/page_media.dart';
@@ -43,7 +44,7 @@ class _MyAppState extends State<MyApp> {
   List<Widget> _pageList = [
     MyHomePage(),
     MediaPage(),
-    HotPage(),
+    ChannelPage(),
   ];
 
   @override

@@ -40,6 +40,8 @@ class _HomeState extends State<FeedNews> {
     scroll.addListener(() {
       if (scroll.position.pixels == scroll.position.maxScrollExtent) {
         print("到底了");
+      }else{
+        getFeed();
       }
     });
   }
