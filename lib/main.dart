@@ -22,12 +22,6 @@ import 'http/feed_data_entity.dart';
 void main() {
   runApp(MyApp());
 
-//  runApp(new MaterialApp(
-//    home: new Home(),
-//    routes: {
-//      "/location/basicloc": (BuildContext context) => new BasicLoc(), // 基础定位
-//    },
-//  ));
 }
 
 class MyApp extends StatefulWidget {

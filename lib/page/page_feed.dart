@@ -134,17 +134,6 @@ class _HomeState extends State<FeedNews> {
 
   _onScrollNotification(ScrollNotification scrollInfo) {
 
-
-//    if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-//      //滑到了底部
-//      if(!isloadingMore){
-//        print('getFeed--到底了');
-//        isloadingMore=true;
-//        // getFeed();
-//      }
-//
-//    }
-
     var maxScroll = scrollInfo.metrics.maxScrollExtent;
     var pixels = scrollInfo.metrics.pixels;
     if (maxScroll == pixels) {
