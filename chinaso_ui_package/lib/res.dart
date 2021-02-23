@@ -7,4 +7,6 @@ class Colours {
   static const Color dividerColor = Color(0xfff9f9f9);
   static const Color indicatorSelectedColor = Color(0xffFC6973);
   static const Color indicatorUnSelectedColor = Color(0xffEEEEEE);
+  static const Color titleColor = Color(0xff222222);
+  static const Color sourceColor = Color(0xffa0a0a0);
 }

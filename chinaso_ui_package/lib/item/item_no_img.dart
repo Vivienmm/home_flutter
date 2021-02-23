@@ -45,6 +45,9 @@ class _ItemNoImgState extends State<ItemNoImg> {
             child: TitleText(widget.title,
             ),
           ),
+          SizedBox(
+            height: 12,
+          ),
           Container(
 
             child: BottomText(widget.source,

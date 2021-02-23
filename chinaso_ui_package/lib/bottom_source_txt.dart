@@ -1,7 +1,10 @@
 
 import 'package:chinaso_ui_package/date_util.dart';
+import 'package:chinaso_ui_package/res.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'date_transform.dart';
 
 class BottomText extends StatelessWidget{
   final String source;
@@ -24,15 +27,19 @@ class BottomText extends StatelessWidget{
     return Row(
       children: <Widget>[
         TypeText(type),
+
         Text(source,
           style: TextStyle(
-            color:Colors.grey ,
+            color:Colours.sourceColor,
             fontSize:11 ,
+            height: 1.1,
           ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
-        TimeText(date,type)
+        SizedBox(width: 8,),
+        TimeText(date,type),
+
       ],
     );
   }
@@ -52,15 +59,20 @@ class TimeText extends StatelessWidget{
   Widget build(BuildContext context) {
     if(type==0){
 
-      String timeStr=DateUtil.getFormatTime3(DateTime.parse(date));
+      String timeStr=RelativeDateFormat.format(DateTime.parse(date));
       return Text(timeStr,
         style: TextStyle(
-          color:Colors.grey ,
+          color:Colours.sourceColor ,
           fontSize:11 ,
+          height: 1.1,
         ),
       );
     }else{
-      return Text("");
+      return Text(" ",style: TextStyle(
+        color:Colours.sourceColor ,
+        fontSize:11 ,
+        height: 1.1,
+      ), maxLines: 1,);
     }
   }
 
@@ -79,26 +91,33 @@ class TypeText extends StatelessWidget{
     // TODO: implement build
     switch(type){
       case 1:
-        return Text("置顶",
-          style: TextStyle(
+        return Container(
+          margin: EdgeInsets.only(right: 8),
+          child:Text("置顶",
+            style: TextStyle(
               color: Colors.red,
               fontSize: 11.0,
+              height: 1.1,
               fontFamily: "Courier",
 
+            ),
           ),
         );
         break;
       case 2:
-        return Text("广告",
-          style: TextStyle(
-              color: Colors.blueGrey,
-              fontSize: 18.0,
-              height: 1.2,
+        return Container(
+            margin: EdgeInsets.only(right: 8),
+            child:Text("广告",
+              style: TextStyle(
+              color: Colours.sourceColor,
+              fontSize: 11.0,
+              height: 1.1,
               fontFamily: "Courier",
-              background: new Paint()..color=Colors.grey,
+              background: new Paint()..color=Colors.blueGrey,
               decoration:TextDecoration.underline,
               decorationStyle: TextDecorationStyle.dashed
-          ),
+             ),
+            ),
         );
         break;
       default:

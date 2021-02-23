@@ -1,4 +1,5 @@
 
+import 'package:chinaso_ui_package/res.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class TitleText extends StatelessWidget{
        Text(text,
          textAlign: TextAlign.left,
          style: TextStyle(
-         color:  Colors.black12,
+         color: Colours.titleColor,
          fontSize: 16,
        ),
          maxLines: 2,

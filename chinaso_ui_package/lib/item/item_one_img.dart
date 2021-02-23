@@ -1,4 +1,5 @@
 import 'package:chinaso_ui_package/bottom_source_txt.dart';
+import 'package:chinaso_ui_package/item/item_component_img.dart';
 import 'package:chinaso_ui_package/title_txt.dart';
 import 'package:flutter/material.dart';
 class ItemImgTitle extends StatefulWidget{
@@ -35,9 +36,9 @@ class _ItemImgTitleState extends State<ItemImgTitle> {
     return Container(
       //  height: 200,
       padding: EdgeInsets.only(top: 15,bottom: 10),
-      margin: EdgeInsets.only(left: 15,right: 15),
+      margin: EdgeInsets.only(right: 15),
       child: Row(
-        textDirection: TextDirection.ltr,
+        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize :MainAxisSize.max,
@@ -45,18 +46,9 @@ class _ItemImgTitleState extends State<ItemImgTitle> {
           Container(
             height: 70,
             width: 112,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: FadeInImage(
-                fit: BoxFit.cover,
-                placeholder:
-                AssetImage( 'assets/img_default2.jpeg',package: 'chinaso_ui_package'),
-                image: NetworkImage(
-                  widget.imgUrl,
-                ),
-              ),
-
-            ),
+             child:ChinasoImg(
+            widget.imgUrl,
+            )
           ),
           Expanded(
 

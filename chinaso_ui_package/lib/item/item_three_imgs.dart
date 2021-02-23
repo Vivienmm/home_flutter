@@ -1,4 +1,5 @@
 import 'package:chinaso_ui_package/bottom_source_txt.dart';
+import 'package:chinaso_ui_package/item/item_component_img.dart';
 import 'package:chinaso_ui_package/title_txt.dart';
 import 'package:flutter/material.dart';
 
@@ -38,9 +39,10 @@ class _ItemThreeImgsState extends State<ItemThreeImgs> {
       padding: EdgeInsets.only(top: 15,bottom: 10),
       margin: EdgeInsets.only(left: 15,right: 15),
       child: Column(
+
         textDirection: TextDirection.ltr,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+
         mainAxisSize :MainAxisSize.max,
         children: <Widget>[
           Container(
@@ -48,42 +50,27 @@ class _ItemThreeImgsState extends State<ItemThreeImgs> {
             child: TitleText(widget.title,
             ),
           ),
+          SizedBox(height: 5,),
+
           Container(
 
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Expanded(
-                    child: FadeInImage(
-                      fit: BoxFit.cover,
-                      placeholder:
-                      AssetImage( 'assets/img_default2.jpeg',package: 'chinaso_ui_package'),
-                      image: NetworkImage(
-                        widget.imgs[0],
-                      ),
-                    )),
-                Expanded(
-                   child: FadeInImage(
-                   fit: BoxFit.cover,
-                   placeholder:
-                   AssetImage( 'assets/img_default2.jpeg',package: 'chinaso_ui_package'),
-                   image: NetworkImage(
-                   widget.imgs[1],
+
+               ChinasoImg(
+                 widget.imgs[0],
+               ),
+                ChinasoImg(
+                  widget.imgs[1],
                   ),
-               )
-                ),
-                Expanded(
-                  child: FadeInImage(
-                  fit: BoxFit.cover,
-                  placeholder:
-                    AssetImage( 'assets/img_default2.jpeg',package: 'chinaso_ui_package'),
-                  image: NetworkImage(
+                ChinasoImg(
                   widget.imgs[2],
-                  ),
-                ),
-                )
+                    ),
               ],
             ),
           ),
+          SizedBox(height: 5,),
           Container(
 
             child: BottomText(widget.source,
