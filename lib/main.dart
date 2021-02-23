@@ -49,6 +49,7 @@ class _MyAppState extends State<MyApp> {
           title: Text(''),
           toolbarHeight: 10,
           backgroundColor: Colors.white,
+          elevation: 0,
         ),
         body: this._pageList[this._currentIndex],
         bottomNavigationBar: BottomNavigationBar(

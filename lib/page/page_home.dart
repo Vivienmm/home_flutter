@@ -117,8 +117,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 SliverPersistentHeader(
 
-                  delegate: MyDelegate(),
+                  delegate: MyDelegate(
+
+                  ),
                   pinned: true,
+
                 ),
               ];
             },
@@ -131,18 +134,22 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 class MyDelegate extends SliverPersistentHeaderDelegate {
 
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+
     return Container(
-      height: 70,
+      height: 50,
       margin: EdgeInsets.only(left:10,right:10,bottom: 10),
       padding: EdgeInsets.only(left: 15, right: 15),
       decoration: new BoxDecoration(
-        color: Colors.white,
+        //color: Colors.red,
+
         //border: new Border.all(width: 2.0, color: Colors.red),
         //borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
         image: new DecorationImage(
+
           image: new AssetImage('assets/input_bg.png'),
           //这里是从assets静态文件中获取的，也可以new NetworkImage(）从网络上获取
           centerSlice: new Rect.fromLTRB(270.0, 180.0, 1360.0, 730.0),
@@ -150,6 +157,7 @@ class MyDelegate extends SliverPersistentHeaderDelegate {
       ),
 
       child: Row(
+
         children: <Widget>[
           Text(
             "搜新闻 上国搜",
@@ -178,10 +186,10 @@ class MyDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 48;
+  double get maxExtent => 58;
 
   @override
-  double get minExtent => 48;
+  double get minExtent => 55;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
