@@ -52,8 +52,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('BottomNavigationBar'),
-          backgroundColor: Colors.pink,
+          title: Text(''),
+          toolbarHeight: 10,
+          backgroundColor: Colors.white,
         ),
         body: this._pageList[this._currentIndex],
         bottomNavigationBar: BottomNavigationBar(

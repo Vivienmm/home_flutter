@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
 import 'package:home_flutter/http/home_feed_entity.dart';
+import 'package:home_flutter/page/page_channel.dart';
 import 'package:weather/data/feed_data_entity.dart';
 
 class FeedNews extends StatefulWidget {
@@ -60,7 +61,7 @@ class _HomeState extends State<FeedNews> {
           itemCount: mAppResultList.length + 1,
           separatorBuilder: (context, index) {
             return Divider(
-                height: 10.0, thickness: 10, color: Colours.dividerColor);
+                height: 1.0, thickness: 1, color: Colours.dividerColor);
           },
           itemBuilder: (context, index) {
             if (index == mAppResultList.length) {
@@ -93,34 +94,40 @@ class _HomeState extends State<FeedNews> {
     if(null!=entity.pictureList){
       imgLenth=entity.pictureList.length;
     }
+    if(index==0){
+      return ChannelPage();
+    }else{
+      switch(entity.exType){
 
-    switch(entity.exType){
-      case "1":
-        type=1;
-        if(imgLenth>0){
-          return ItemImgTitle(title: title,source: source,type: type,date: date,imgUrl: entity.pictureList[0]);
-        }else{
-          return ItemNoImg(title: title,source: source,type: type,date: date);
-        }
-        break;
-      case "2":
-        type=2;
-        if(imgLenth>0){
-          return ItemImgTitle(title: title,source: source,type: type,date: date,imgUrl: entity.pictureList[0]);
-        }else{
-          return ItemNoImg(title: title,source: source,type: type,date: date);
-        }
-        break;
-      default:
-        type=0;
-        if(imgLenth>2){
-          return ItemThreeImgs(title: title,source: source,type: type,date: date,imgs: entity.pictureList);
+        case "1":
+          type=1;
+          if(imgLenth>0){
+            return ItemImgTitle(title: title,source: source,type: type,date: date,imgUrl: entity.pictureList[0]);
+          }else{
+            return ItemNoImg(title: title,source: source,type: type,date: date);
+          }
+          break;
+        case "2":
+          type=2;
+          if(imgLenth>0){
+            return ItemImgTitle(title: title,source: source,type: type,date: date,imgUrl: entity.pictureList[0]);
+          }else{
+            return ItemNoImg(title: title,source: source,type: type,date: date);
+          }
+          break;
+        default:
+          type=0;
+          if(imgLenth>2){
+            return ItemThreeImgs(title: title,source: source,type: type,date: date,imgs: entity.pictureList);
 
-        }else if(imgLenth>0) {
-          return ItemImgTitle(title: title,source: source,type: type,date: date,imgUrl: entity.pictureList[0]);
-        }else
-          return ItemNoImg(title: title,source: source,type: type,date: date);
+          }else if(imgLenth>0) {
+            return ItemImgTitle(title: title,source: source,type: type,date: date,imgUrl: entity.pictureList[0]);
+          }else
+            return ItemNoImg(title: title,source: source,type: type,date: date);
+      }
+
     }
+
 
   }
 

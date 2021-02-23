@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
 import 'package:home_flutter/page/page_feed.dart';
+import 'package:weather/weather.dart';
 
 import '../utils/string_util.dart';
 import 'page_default.dart';
@@ -54,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
       return Scaffold(
+        backgroundColor: Colors.white,
 
         body: RefreshIndicator2(
           notificationPredicate: (notifation) {
@@ -77,29 +79,53 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            FlutterLogo(),
-                            SizedBox(
-                              width: 15,
+
+                            Container(
+                              width: 180,
+                              height: 50,
+                              child: WeatherHome(),
                             ),
-                            Text(
-                              "作者:Jaynm",
-                              style: TextStyle(color: Colors.black, fontSize: 16),
+                            Flexible(
+                              flex: 1,
+                              child: Align(
+                                alignment: Alignment.topRight,
+
+                                child: Container(
+                                  width: 15,
+                                  height: 15,
+                                  margin: EdgeInsets.only(right: 15),
+                                  child: Image.asset(
+                                      'assets/setting_icon.png'
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
                         SizedBox(
                           height: 15,
                         ),
-                        Text(
-                          "在普通的ScrollView中，有一组条子（滚动视图的组成部分）。如果这些条中的一个托管了一个TabBarView，它沿相反的方向滚动（例如，允许用户在标签所代表的页面之间水平滑动，而列表则垂直滚动），则TabBarView内部的任何列表都不会与外部ScrollView交互。。例如，浏览内部列表以滚动到顶部不会导致外部ScrollView中的SliverAppBar折叠 而展开。",
-                          style: TextStyle(color: Colors.black, fontSize: 16),
+
+                       Align(
+                          alignment: Alignment.center,
+
+                          child: Container(
+                            width: 146,
+                            height: 34,
+                            child: Image.asset(
+                                'assets/home_logo.png'
+                            ),
+                          ),
                         ),
+
+
                       ],
                     ),
                   ),
                 ),
 
                 SliverPersistentHeader(
+
                   delegate: MyDelegate(),
                   pinned: true,
                 ),
@@ -194,33 +220,48 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 class MyDelegate extends SliverPersistentHeaderDelegate {
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      height: 48,
+      height: 70,
+      margin: EdgeInsets.only(left:10,right:10,bottom: 10),
       padding: EdgeInsets.only(left: 15, right: 15),
-      color: Colors.grey[200],
+      decoration: new BoxDecoration(
+        color: Colors.white,
+        //border: new Border.all(width: 2.0, color: Colors.red),
+        //borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
+        image: new DecorationImage(
+          image: new AssetImage('assets/input_bg.png'),
+          //这里是从assets静态文件中获取的，也可以new NetworkImage(）从网络上获取
+          centerSlice: new Rect.fromLTRB(270.0, 180.0, 1360.0, 730.0),
+        ),
+      ),
+
       child: Row(
         children: <Widget>[
           Text(
-            "赞：1020",
+            "搜新闻 上国搜",
           ),
           SizedBox(
             width: 15,
           ),
-          Text(
-            "评论：100",
-          ),
+
           Flexible(
             flex: 1,
             child: Align(
               alignment: Alignment.centerRight,
-              child: Text(
-                "转发：10",
+
+              child: Container(
+                width: 15,
+                height: 24,
+                child: Image.asset(
+                    'assets/voice_symbol.png'
+                ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
