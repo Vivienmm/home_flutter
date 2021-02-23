@@ -30,6 +30,9 @@ class _HomeState extends State<FeedNews> {
   num mCurPage = 1;
   List<HomeFeedEntityInner> mAppResultList = [];
 
+
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -37,20 +40,22 @@ class _HomeState extends State<FeedNews> {
 
     getFeed();
     //监听控制器
-    scroll.addListener(() {
-      if (scroll.position.pixels == scroll.position.maxScrollExtent) {
-        print("到底了");
-      }else{
-        getFeed();
-      }
-    });
+//    scroll.addListener(() {
+//      if (scroll.position.pixels == scroll.position.maxScrollExtent) {
+//        print("到底了");
+//      }else{
+//        getFeed();
+//      }
+//    });
+
+
   }
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Container(
+      child: NotificationListener<ScrollNotification>(
         child: new ListView.separated(
           itemCount: mAppResultList.length + 1,
           separatorBuilder: (context, index) {
@@ -68,47 +73,16 @@ class _HomeState extends State<FeedNews> {
               return getContentItem(context, index, mAppResultList[index]);
             }
           },
-          controller: scroll,
+
+          //controller: scroll,
         ),
+        onNotification: (ScrollNotification scrollInfo) =>
+            _onScrollNotification(scrollInfo),
       ),
     );
   }
 
 
-  Future getFeed (){
-
-    /// 调用
-    ApiInterface.getFeed(
-        mCurPage) .then((data) {
-      /// 请求成功 进行成功的逻辑处
-      Map<String, dynamic> responseData =  jsonDecode(data);
-
-      Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"]));
-      HomeFeedEntity entity=new HomeFeedEntity();
-      homeFeedEntityFromJson(entity,responseDataInner);
-      if(mCurPage==1){
-        mAppResultList.addAll(entity.toplist);
-      }
-      mAppResultList.addAll(entity.results);
-      print('http--ss>------homeFeedEntityFromJson'+entity.results[0].titleCN);
-
-      setState(() {
-
-        isloadingMore = true;
-        mCurPage += 1;
-      });
-    }).catchError((errorMsg) {
-      /// 请求失败 dio异常
-      print('http--ss>------请求失败'+errorMsg.toString());
-      /// 请求失败  进入了自定义的error拦截
-      if (errorMsg is LogicError) {
-        LogicError logicError = errorMsg;
-
-      } else {
-
-      }
-    });
-  }
 
   Widget getContentItem(BuildContext context, int index, HomeFeedEntityInner entity) {
     String title=entity.titleCN;
@@ -129,25 +103,97 @@ class _HomeState extends State<FeedNews> {
           return ItemNoImg(title: title,source: source,type: type,date: date);
         }
         break;
-        case "2":
-          type=2;
-          if(imgLenth>0){
-            return ItemImgTitle(title: title,source: source,type: type,date: date,imgUrl: entity.pictureList[0]);
-          }else{
-            return ItemNoImg(title: title,source: source,type: type,date: date);
-          }
-         break;
-     default:
-       type=0;
-       if(imgLenth>2){
-         return ItemThreeImgs(title: title,source: source,type: type,date: date,imgs: entity.pictureList);
+      case "2":
+        type=2;
+        if(imgLenth>0){
+          return ItemImgTitle(title: title,source: source,type: type,date: date,imgUrl: entity.pictureList[0]);
+        }else{
+          return ItemNoImg(title: title,source: source,type: type,date: date);
+        }
+        break;
+      default:
+        type=0;
+        if(imgLenth>2){
+          return ItemThreeImgs(title: title,source: source,type: type,date: date,imgs: entity.pictureList);
 
-       }else if(imgLenth>0) {
-         return ItemImgTitle(title: title,source: source,type: type,date: date,imgUrl: entity.pictureList[0]);
-       }else
-         return ItemNoImg(title: title,source: source,type: type,date: date);
-       }
-
+        }else if(imgLenth>0) {
+          return ItemImgTitle(title: title,source: source,type: type,date: date,imgUrl: entity.pictureList[0]);
+        }else
+          return ItemNoImg(title: title,source: source,type: type,date: date);
     }
 
+  }
+
+
+  _onScrollNotification(ScrollNotification scrollInfo) {
+
+
+//    if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+//      //滑到了底部
+//      if(!isloadingMore){
+//        print('getFeed--到底了');
+//        isloadingMore=true;
+//        // getFeed();
+//      }
+//
+//    }
+
+    var maxScroll = scrollInfo.metrics.maxScrollExtent;
+    var pixels = scrollInfo.metrics.pixels;
+    if (maxScroll == pixels) {
+      if (!isloadingMore) {
+        if (ishasMore) {
+          setState(() {
+            isloadingMore = true;
+            mCurPage += 1;
+          });
+          Future.delayed(Duration(seconds: 3), () {
+
+            getFeed();
+          });
+        } else {
+          setState(() {
+            ishasMore = false;
+          });
+        }
+      }
+    }
+  }
+
+  Future getFeed (){
+    print('getFeed--'+mCurPage.toString());
+
+    /// 调用
+    ApiInterface.getFeed(
+        mCurPage) .then((data) {
+      /// 请求成功 进行成功的逻辑处
+      Map<String, dynamic> responseData =  jsonDecode(data);
+
+      Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"]));
+      HomeFeedEntity entity=new HomeFeedEntity();
+      homeFeedEntityFromJson(entity,responseDataInner);
+      if(mCurPage==1){
+        mAppResultList.addAll(entity.toplist);
+      }
+
+      print('getFeed--表'+entity.results[0].titleCN);
+      setState(() {
+        mAppResultList.addAll(entity.results);
+        isloadingMore = false;
+
+      });
+    }).catchError((errorMsg) {
+      /// 请求失败 dio异常
+
+      /// 请求失败  进入了自定义的error拦截
+      if (errorMsg is LogicError) {
+        LogicError logicError = errorMsg;
+
+      } else {
+
+      }
+    });
+  }
+
 }
+

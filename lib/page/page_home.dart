@@ -1,4 +1,5 @@
 
+import 'package:chinaso_ui_package/refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
@@ -51,40 +52,91 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets
 
-    return NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return <Widget>[SliverAppBar(
-          expandedHeight: 230.0,
-          pinned: true,
-          flexibleSpace: FlexibleSpaceBar(
-            title: Text('复仇者联盟'),
-            background: Image.network(
-              'http://img.haote.com/upload/20180918/2018091815372344164.jpg',
-              fit: BoxFit.fitHeight,
-            ),
+      return Scaffold(
+
+        body: RefreshIndicator2(
+          notificationPredicate: (notifation) {
+            return true;
+          },
+          onRefresh: () {
+            return Future.delayed(Duration(seconds: 2), () {
+              return true;
+            });
+          },
+          child: NestedScrollView(
+            headerSliverBuilder: (contex, _) {
+              return [
+                //sliver
+                SliverToBoxAdapter(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 15),
+                    padding: EdgeInsets.only(top: 15, bottom: 15, left: 15),
+                    color: Colors.white,
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            FlutterLogo(),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              "作者:Jaynm",
+                              style: TextStyle(color: Colors.black, fontSize: 16),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "在普通的ScrollView中，有一组条子（滚动视图的组成部分）。如果这些条中的一个托管了一个TabBarView，它沿相反的方向滚动（例如，允许用户在标签所代表的页面之间水平滑动，而列表则垂直滚动），则TabBarView内部的任何列表都不会与外部ScrollView交互。。例如，浏览内部列表以滚动到顶部不会导致外部ScrollView中的SliverAppBar折叠 而展开。",
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                SliverPersistentHeader(
+                  delegate: MyDelegate(),
+                  pinned: true,
+                ),
+              ];
+            },
+            body: new FeedNews(),
           ),
-        )];
-      },
-      body: new FeedNews(),
-//      body: ListView.builder(itemBuilder: (BuildContext context,int index){
-//        return Container(
-//          height: 80,
-//          color: Colors.primaries[index % Colors.primaries.length],
-//          alignment: Alignment.center,
-//          child: Text(
-//            '$index',
-//            style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+      );
+
+//    return NestedScrollView(
+//      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+//        return <Widget>[SliverAppBar(
+//          expandedHeight: 230.0,
+//          pinned: true,
+//          flexibleSpace: FlexibleSpaceBar(
+//            title: Text('复仇者联盟'),
+//            background: Image.network(
+//              'http://img.haote.com/upload/20180918/2018091815372344164.jpg',
+//              fit: BoxFit.fitHeight,
+//            ),
 //          ),
-//        );
-//      },itemCount: 20,),
-    );
+//        )];
+//      },
+//      body: new FeedNews(),
+////      body: ListView.builder(itemBuilder: (BuildContext context,int index){
+////        return Container(
+////          height: 80,
+////          color: Colors.primaries[index % Colors.primaries.length],
+////          alignment: Alignment.center,
+////          child: Text(
+////            '$index',
+////            style: TextStyle(color: Colors.white, fontSize: 20),
+////          ),
+////        );
+////      },itemCount: 20,),
+//    );
 //    return Scaffold(
 //      appBar: AppBar(
 //        // Here we take the value from the MyHomePage object that was created by
@@ -141,4 +193,47 @@ class _MyHomePageState extends State<MyHomePage> {
 //    );
   }
 }
+class MyDelegate extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      height: 48,
+      padding: EdgeInsets.only(left: 15, right: 15),
+      color: Colors.grey[200],
+      child: Row(
+        children: <Widget>[
+          Text(
+            "赞：1020",
+          ),
+          SizedBox(
+            width: 15,
+          ),
+          Text(
+            "评论：100",
+          ),
+          Flexible(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "转发：10",
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
+  @override
+  double get maxExtent => 48;
+
+  @override
+  double get minExtent => 48;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
+  }
+}

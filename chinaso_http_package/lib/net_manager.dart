@@ -149,7 +149,7 @@ class NetUtil {
 //          print("\n");
 //        }
 //    ));
-    return _dio.request<String>(
+    return _dio.get<String>(
         method == "get" ? uri : "$uri?token=$enToken",
         data: data,
         options: op);

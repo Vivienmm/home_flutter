@@ -11,7 +11,7 @@ class ApiInterface {
   static Future<String> getFeed(int pageNo) async {
     /// 调用封装的NetUtil ，这里合理选择方法即可，比如请求体的方式传参数
     print('http--ss>------getFeed');
-    return NetUtil.getJson(HttpConstant.FEED_HOME,
+    return NetUtil.getJson(HttpConstant.FEED_HOME+'?pageNo=$pageNo',
         {"pageNo":pageNo}.toString());
   }
 
