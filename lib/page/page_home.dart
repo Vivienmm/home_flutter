@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                             Container(
                               width: 180,
-                              height: 50,
+                              height: 70,
                               child: WeatherHome(),
                             ),
                             Flexible(

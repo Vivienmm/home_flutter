@@ -9,4 +9,5 @@ class Colours {
   static const Color indicatorUnSelectedColor = Color(0xffEEEEEE);
   static const Color titleColor = Color(0xff222222);
   static const Color sourceColor = Color(0xffa0a0a0);
+  static const Color weatherColor = Color(0xff333333);
 }
