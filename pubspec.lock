@@ -193,6 +193,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.3"
+  scroll_text:
+    dependency: "direct main"
+    description:
+      name: scroll_text
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.2"
   scrollable_positioned_list:
     dependency: transitive
     description:

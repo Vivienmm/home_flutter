@@ -1,10 +1,13 @@
 
 import 'package:chinaso_ui_package/refresh_indicator.dart';
+import 'package:chinaso_ui_package/vertical_scroll.dart';
+import 'package:chinaso_ui_package/vertical_scroll_txt.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
 import 'package:home_flutter/page/page_feed.dart';
+import 'package:scroll_text/scroll_text.dart';
 import 'package:weather/weather.dart';
 
 import '../utils/string_util.dart';
@@ -175,9 +178,15 @@ class MyDelegate extends SliverPersistentHeaderDelegate {
       child: Row(
 
         children: <Widget>[
-          Text(
-            "搜新闻 上国搜",
+          Container(
+            height: 30,
+            width: 260,
+            child:VerticalScroll(
+            ) ,
           ),
+
+
+
           SizedBox(
             width: 15,
           ),
