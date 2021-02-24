@@ -13,6 +13,7 @@ import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
 import 'package:home_flutter/http/home_feed_entity.dart';
 import 'package:home_flutter/page/page_channel.dart';
+import 'package:home_flutter/page/page_web.dart';
 import 'package:weather/data/feed_data_entity.dart';
 
 class FeedNews extends StatefulWidget {
@@ -71,7 +72,11 @@ class _HomeState extends State<FeedNews> {
                     isloadingMore: isloadingMore, ishasMore: ishasMore),
               );
             } else {
-              return getContentItem(context, index, mAppResultList[index]);
+              return GestureDetector(
+                  child: getContentItem(context, index, mAppResultList[index]),
+                  onTap: (){
+                    _itemClick(mAppResultList[index]);
+                  });
             }
           },
 
@@ -189,6 +194,10 @@ class _HomeState extends State<FeedNews> {
 
       }
     });
+  }
+
+  void _itemClick(HomeFeedEntityInner mAppResultList) {
+    Navigator.push(context, MaterialPageRoute(builder: (cx)=>ItemInfoDetail(url:mAppResultList.url,)));
   }
 
 }
