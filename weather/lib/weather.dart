@@ -154,24 +154,26 @@ class _WeatherHomeState extends State<WeatherHome> {
                       height: 20,
                       padding: EdgeInsets.only(left: 15),
                       child: Row(
+                        textDirection:TextDirection.ltr ,
                         children: [
+                          Container(
+                            width: 10,
+                            child: Image.asset( 'assets/loc_symbol.png'),
+                          ),
                           Text(city,
                             style: TextStyle(
                               color: Colours.weatherColor,
                               fontSize: 12,
                             ),
                           ),
-                          Container(
-                            width: 20,
-                            child: Image.asset( 'assets/home_logo.png'),
-                          ),
+
 
                         ],
                       )
                   ),
                   Container(
                     padding: EdgeInsets.only(left: 15),
-                    child: Text(entityReal.temper+"℃··"+entityReal.weather+"·"+quality,
+                    child: Text(entityReal.temper+"℃·"+entityReal.weather+"·"+quality,
                         style: TextStyle(
                           color: Colours.weatherColor,
                           fontSize: 10,

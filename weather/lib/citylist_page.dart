@@ -11,47 +11,27 @@ import 'package:weather/json/city_list_entity_helper.dart';
 import 'package:weather/weather_api.dart';
 import 'package:weather/weather_utils.dart';
 
+import 'object_util.dart';
+
 class CityListPage extends StatefulWidget {
   @override
   _CityListPageState createState() => _CityListPageState();
 }
 
 class _CityListPageState extends State<CityListPage> {
-  List<CityListum> cityList = [];
-  List<CityListum> _hotCityList = [];
+  List<CityListum> showList = [];
+  List<CityListum> originList = [];
+ // List<CityListum> _hotCityList = [];
 
   @override
   void initState() {
     super.initState();
-    _hotCityList.add(CityListum(city: '北京市', code: '★'));
-    _hotCityList.add(CityListum(city: '广州市', code: '★'));
-    _hotCityList.add(CityListum(city: '成都市', code: '★'));
 
-    cityList.addAll(_hotCityList);
-    SuspensionUtil.setShowSuspensionStatus(cityList);
-
-//    Future.delayed(Duration(milliseconds: 500), () {
-//      loadData();
-//    });
+    SuspensionUtil.setShowSuspensionStatus(showList);
 
     getCityList();
   }
 
-//  void loadData() async {
-//    //加载城市列表
-//    rootBundle.loadString('assets/data/china.json').then((value) {
-//      cityList.clear();
-//      Map countyMap = json.decode(value);
-//      List list = countyMap['china'];
-//
-//
-//      list.forEach((v) {
-//        cityList.add(CityModel.fromJson(v));
-//      });
-//
-//      _handleList(cityList);
-//    });
-//  }
 
   Future getCityList() {
 
@@ -74,25 +54,25 @@ class _CityListPageState extends State<CityListPage> {
         print('http--ss>------city-v'+v.toString());
         CityListum num=new CityListum();
         cityListumFromJson(num,jsonDecode(jsonEncode(v)));
-        cityList.add(num);
+        originList.add(num);
       //  listums.add(new CityListum().fromJson(v));
       });
       ((responseDataInner["B"]) as List).forEach((v) {
 
         CityListum num=new CityListum();
         cityListumFromJson(num,jsonDecode(jsonEncode(v)));
-        cityList.add(num);
+        originList.add(num);
 
       });
       ((responseDataInner["C"]) as List).forEach((v) {
 
         CityListum num=new CityListum();
         cityListumFromJson(num,jsonDecode(jsonEncode(v)));
-        cityList.add(num);
+        originList.add(num);
 
       });
 
-      _handleList(cityList);
+      _handleList(originList);
 
     }).catchError((errorMsg) {
       /// 请求失败 dio异常
@@ -109,9 +89,15 @@ class _CityListPageState extends State<CityListPage> {
 
 
   void _handleList(List<CityListum> list) {
-    if (list == null || list.isEmpty) return;
-    for (int i = 0, length = list.length; i < length; i++) {
 
+    showList.clear();
+
+    if (ObjectUtil.isEmpty(list)) {
+      setState(() {});
+      return;
+    }
+
+    for (int i = 0, length = list.length; i < length; i++) {
 
       String pinyin = PinyinHelper.getPinyinE(list[i].city);
       String tag = pinyin.substring(0, 1).toUpperCase();
@@ -121,14 +107,13 @@ class _CityListPageState extends State<CityListPage> {
         list[i].code = '#';
       }
     }
-    // A-Z sort.
-    SuspensionUtil.sortListBySuspensionTag(list);
 
-    // add hotCityList.
-    cityList.insertAll(0, _hotCityList);
+    showList.addAll(list);
+    // A-Z sort.
+    SuspensionUtil.sortListBySuspensionTag(showList);
 
     // show sus tag.
-    SuspensionUtil.setShowSuspensionStatus(cityList);
+    SuspensionUtil.setShowSuspensionStatus(showList);
 
     setState(() {});
   }
@@ -141,7 +126,10 @@ class _CityListPageState extends State<CityListPage> {
         children: <Widget>[
           Expanded(
               child: TextField(
-            autofocus: false,
+                autofocus: false,
+                onChanged: (value) {
+                  _search(value);
+                },
             decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(left: 10, right: 10),
                 border: InputBorder.none,
@@ -171,6 +159,18 @@ class _CityListPageState extends State<CityListPage> {
     );
   }
 
+
+  void _search(String text) {
+    if (ObjectUtil.isEmpty(text)) {
+      _handleList(originList);
+    } else {
+      List<CityListum> list = originList.where((v) {
+        return v.pinyin.toLowerCase().contains(text.toLowerCase());
+      }).toList();
+      _handleList(list);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,19 +196,19 @@ class _CityListPageState extends State<CityListPage> {
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.only(left: 15.0),
                       height: 50.0,
-                      child: Text("当前城市: 成都市"),
+                      child: Text("当前城市: 北京市"),
                     ),
                     Expanded(
                       child: AzListView(
-                        data: cityList,
-                        itemCount: cityList.length,
+                        data: showList,
+                        itemCount: showList.length,
                         itemBuilder: (BuildContext context, int index) {
-                          CityListum model = cityList[index];
+                          CityListum model = showList[index];
                           return Utils.getListItem(context, model);
                         },
                         padding: EdgeInsets.zero,
                         susItemBuilder: (BuildContext context, int index) {
-                          CityListum model = cityList[index];
+                          CityListum model = showList[index];
                           String tag = model.getSuspensionTag();
                           return Utils.getSusItem(context, tag);
                         },
