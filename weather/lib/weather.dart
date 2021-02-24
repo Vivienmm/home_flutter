@@ -122,86 +122,76 @@ class _WeatherHomeState extends State<WeatherHome> {
   @override
   Widget build(BuildContext context) {
 
-//    return new Scaffold(
-//
-//        body: new Scrollbar(
-//            child: new ListView(
-//              children:
-//                  render(context, [
-//                {
-//                  "title": city,
-//                  "subtitle": weather,
-//                  "url": "/location/basicloc"
-//                },
-//              ]),
-//
-//            )));
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pushNamed("/location/basicloc");
+      },
+      child:Container(
+        height: 70,
+        padding: EdgeInsets.only(top: 15,bottom: 10),
+        margin: EdgeInsets.only(right: 15),
+        child: Row(
+          textDirection: TextDirection.ltr,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize :MainAxisSize.max,
+          children: <Widget>[
+            Image(
+              height: 50,
+              width: 50,
+              image:NetworkImage(imageUrl) ,
+            ),
+            Expanded(
 
-    return Container(
-      height: 70,
-      padding: EdgeInsets.only(top: 15,bottom: 10),
-      margin: EdgeInsets.only(right: 15),
-      child: Row(
-        textDirection: TextDirection.ltr,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize :MainAxisSize.max,
-        children: <Widget>[
-          Image(
-            height: 50,
-            width: 50,
-            image:NetworkImage(imageUrl) ,
-          ),
-          Expanded(
+              child: Column(
 
-            child: Column(
+                textDirection: TextDirection.ltr,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize :MainAxisSize.max,
+                children: <Widget>[
+                  Container(
+                      height: 20,
+                      padding: EdgeInsets.only(left: 15),
+                      child: Row(
+                        children: [
+                          Text(city,
+                            style: TextStyle(
+                              color: Colours.weatherColor,
+                              fontSize: 12,
+                            ),
+                          ),
+                          Container(
+                            width: 20,
+                            child: Image.asset( 'assets/home_logo.png'),
+                          ),
 
-              textDirection: TextDirection.ltr,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize :MainAxisSize.max,
-              children: <Widget>[
-                Container(
-                  height: 20,
-                  padding: EdgeInsets.only(left: 15),
-                  child: Row(
-                    children: [
-                      Text(city,
+                        ],
+                      )
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 15),
+                    child: Text(entityReal.temper+"℃··"+entityReal.weather+"·"+quality,
                         style: TextStyle(
                           color: Colours.weatherColor,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Container(
-                        width: 20,
-                        child: Image.asset( 'assets/home_logo.png'),
-                      ),
-
-                    ],
+                          fontSize: 10,
+                        )),
+                    //  margin: EdgeInsets.only(left: 60),
                   )
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Text(entityReal.temper+"℃··"+entityReal.weather+"·"+quality,
-                      style: TextStyle(
-                        color: Colours.weatherColor,
-                        fontSize: 10,
-                      )),
-                  //  margin: EdgeInsets.only(left: 60),
-                )
 
-              ],
+                ],
 
-            ),
-          )
+              ),
+            )
 
 
-        ],
+          ],
 
 
-      ),
+        ),
 
 
+      ) ,
     );
   }
 }
