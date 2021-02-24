@@ -93,6 +93,7 @@ flutter:
     - assets/voice_symbol.png
     - assets/home_logo.png
     - assets/loc_symbol.png
+    - assets/icon_close.png
     - assets/channel/channel_app.png
     - assets/channel/channel_chain.png
     - assets/channel/channel_eng.png

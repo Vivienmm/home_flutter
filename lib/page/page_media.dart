@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:home_flutter/http/home_feed_entity.dart';
+import 'package:weather/loc_baidu.dart';
 import 'package:weather/weather.dart';
 
 import '../utils/string_util.dart';
@@ -13,7 +14,7 @@ class MediaPage extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     //return PageContent(title:Strings.tabIcon2);
-    return WeatherHome();
+    return BasicLoc();
   }
 
 }

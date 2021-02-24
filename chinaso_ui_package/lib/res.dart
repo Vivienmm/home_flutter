@@ -10,4 +10,5 @@ class Colours {
   static const Color titleColor = Color(0xff222222);
   static const Color sourceColor = Color(0xffa0a0a0);
   static const Color weatherColor = Color(0xff333333);
+  static const Color localBgColor = Color(0xfff7f7);
 }

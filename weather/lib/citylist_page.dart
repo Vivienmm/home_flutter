@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:azlistview/azlistview.dart';
 import 'package:chinaso_http_package/log_error.dart';
+import 'package:chinaso_ui_package/res.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,7 @@ import 'package:weather/json/city_list_entity_helper.dart';
 import 'package:weather/weather_api.dart';
 import 'package:weather/weather_utils.dart';
 
+import 'button_search.dart';
 import 'object_util.dart';
 
 class CityListPage extends StatefulWidget {
@@ -121,41 +123,78 @@ class _CityListPageState extends State<CityListPage> {
   Widget header() {
     return Container(
       color: Colors.white,
-      height: 44.0,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-              child: TextField(
-                autofocus: false,
-                onChanged: (value) {
-                  _search(value);
+      height: 110.0,
+      child:Column(
+        children: [
+          Row(
+            children: [
+              Expanded(child: Container(
+                margin: EdgeInsets.only(left: 20),
+                  child:Text('搜索',
+                    style:TextStyle(
+                    color: Colours.titleColor,
+                    fontSize: 18,
+                  ),)
+              )),
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
                 },
-            decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 10, right: 10),
-                border: InputBorder.none,
-                labelStyle: TextStyle(fontSize: 14, color: Color(0xFF333333)),
-                hintText: '城市中文名或拼音',
-                hintStyle: TextStyle(fontSize: 14, color: Color(0xFFCCCCCC))),
-          )),
-          Container(
-            width: 0.33,
-            height: 14.0,
-            color: Color(0xFFEFEFEF),
+                child: Padding(
+
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    width: 20,
+                    child: Image.asset( 'assets/icon_close.png'),
+                  ),
+                ),
+              )
+            ],
           ),
-          InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                "取消",
-                style: TextStyle(color: Color(0xFF999999), fontSize: 14),
+          Expanded(
+            child:Container(
+              margin: EdgeInsets.only(left: 10,right: 10),
+              padding: EdgeInsets.only(bottom: 5),
+              height: 45,
+              decoration:  new BoxDecoration(
+                //color: Colors.grey,
+                image: new DecorationImage(
+                  image: new AssetImage('assets/input_bg.png'),
+    //这里是从assets静态文件中获取的，也可以new NetworkImage(）从网络上获取
+                   centerSlice: new Rect.fromLTRB(270.0, 180.0, 1360.0, 730.0),
+                ),
               ),
-            ),
+                child: TextField(
+                  autofocus: false,
+                  onChanged: (value) {
+                    _search(value);
+                  },
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 10, right: 10),
+                      border: InputBorder.none,
+                      labelStyle: TextStyle(fontSize: 14, color: Color(0xFF333333)),
+                      hintText: '城市中文名或拼音',
+                      hintStyle: TextStyle(fontSize: 14, color: Color(0xFFCCCCCC))),
+                )),
+
+          ),
+          SizedBox(
+            height: 30,
           )
         ],
-      ),
+
+      )
+//      child: Row(
+//        children: <Widget>[
+//
+//          Container(
+//            width: 0.33,
+//            height: 14.0,
+//            color: Color(0xFFEFEFEF),
+//          ),
+//
+//        ],
+//      ),
     );
   }
 
@@ -178,26 +217,56 @@ class _CityListPageState extends State<CityListPage> {
       body: SafeArea(
           child: Column(
         children: [
-          header(),
-          Expanded(
+          // header(),
+
+           Expanded(
+
             child: Material(
               color: Color(0x80000000),
               child: Card(
                 clipBehavior: Clip.hardEdge,
-                margin: const EdgeInsets.only(left: 8, top: 8, right: 8),
+                margin: const EdgeInsets.only(left: 8, top: 48, right: 8),
                 shape: const RoundedRectangleBorder(
                   borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0)),
+                      topLeft: Radius.circular(14.0),
+                      topRight: Radius.circular(14.0)),
                 ),
                 child: Column(
+
                   children: [
+                    header(),
                     Container(
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.only(left: 15.0),
-                      height: 50.0,
-                      child: Text("当前城市: 北京市"),
+                      height: 20.0,
+                      child: Text("当前定位",style: TextStyle(
+                        fontSize: 18,
+                      ),),
                     ),
+                    Row(
+                      children: [
+                        Container(
+                          height: 32,
+                          width: 100,
+
+                          alignment: Alignment.center,
+                          decoration:  new BoxDecoration(
+                            color: Colours.localBgColor,
+                            image: new DecorationImage(
+                              image: new AssetImage('assets/input_bg.png'),
+                              //这里是从assets静态文件中获取的，也可以new NetworkImage(）从网络上获取
+                              centerSlice: new Rect.fromLTRB(270.0, 180.0, 1360.0, 730.0),
+                            ),
+                          ),
+                          child: Text("北京",style: TextStyle(
+                            fontSize: 14,
+                            color: Colours.indicatorSelectedColor,
+                          ),),
+                        ),
+                        LocalSearch(),
+                      ],
+                    ),
+
                     Expanded(
                       child: AzListView(
                         data: showList,
@@ -225,3 +294,4 @@ class _CityListPageState extends State<CityListPage> {
     );
   }
 }
+
