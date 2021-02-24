@@ -1,6 +1,7 @@
 
 import 'package:chinaso_ui_package/refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
 import 'package:home_flutter/page/page_feed.dart';
@@ -81,15 +82,30 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Align(
                                 alignment: Alignment.topRight,
 
-                                child: Container(
-                                  width: 15,
-                                  height: 15,
-                                  margin: EdgeInsets.only(right: 15),
-                                  child: Image.asset(
+                                child:  InkWell(
+                                  onTap: (){
+                                      print("点击了 ");
+
+                                     Fluttertoast.showToast(
+                                         msg:  "点击设置",
+                                         toastLength: Toast.LENGTH_SHORT,
+                                         gravity: ToastGravity.CENTER,
+                                         timeInSecForIos: 1,
+                                         backgroundColor: Colors.red,
+                                         textColor: Colors.white,
+                                         fontSize: 16.0
+                                     );
+                                     },
+                                  child: Container(
+                                    width: 15,
+                                    height: 15,
+                                    margin: EdgeInsets.only(right: 15),
+                                    child: Image.asset(
                                       'assets/setting_icon.png'
                                   ),
                                 ),
                               ),
+                            ),
                             ),
                           ],
                         ),

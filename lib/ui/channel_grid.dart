@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_flutter/http/channel_item.dart';
 
 class PageItem extends StatelessWidget {
@@ -19,29 +20,13 @@ class PageItem extends StatelessWidget {
       padding: EdgeInsets.all(4),
       color: Colors.white,
 
-//       child: GridView.builder(
-//
-//
-//          itemCount: items.length,
-//         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//             crossAxisCount: 4,
-//             childAspectRatio: 1
-//         ),
-//           itemBuilder: (BuildContext context,var index){
-//             return Image.network(
-//               "https://pic2.zhimg.com/v2-639b49f2f6578eabddc458b84eb3c6a1.jpg",
-//               fit: BoxFit.fill,
-//             );
-//           }
-//
-//        ),
         child: GridView.custom(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: 6.0,
         childAspectRatio: 0.5,
         crossAxisCount: 4,),
       childrenDelegate: SliverChildBuilderDelegate((context, position) {
-        return getItemContainer(items[position]);
+        return getItemContainer(items[position],context);
       },
           childCount: items.length),
           shrinkWrap: true,
@@ -53,11 +38,28 @@ class PageItem extends StatelessWidget {
     );
   }
 }
-Widget getItemContainer(ChannelItem item) {
-  return Container(
+Widget getItemContainer(ChannelItem item,BuildContext context) {
+
+  return InkWell(
+      onTap: (){
+        print("点击了 ");
+
+        Fluttertoast.showToast(
+          msg:  item.channelName,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      },
+
+  child: Container(
     width: 40.0,
     height:60.0,
     alignment: Alignment.center,
+    color: Colors.white,
     child: Column(
       children: [
 
@@ -69,11 +71,12 @@ Widget getItemContainer(ChannelItem item) {
         ),
 
         Text(
-      item.channelName,
-      style: TextStyle(color: Colors.grey, fontSize: 10),
-      ),
+          item.channelName,
+          style: TextStyle(color: Colors.grey, fontSize: 10),
+        ),
 
       ],
     ),
-  );
+  ),);
+
 }
