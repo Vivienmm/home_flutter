@@ -12,14 +12,14 @@ class BarDelegate extends SliverPersistentHeaderDelegate {
 
   List<String> hotWords=new List<String>();
 
+  BarDelegate({
+    Key key,
+    this.hotWords,
+  });
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-
-    hotWords.add("热词1");
-    hotWords.add("热词2");
-    hotWords.add("热词3");
 
     return Container(
       height: 50,

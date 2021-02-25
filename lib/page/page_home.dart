@@ -27,9 +27,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int pageNo=0;
+  List<String> hotWords=new List<String>();
 
-
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    hotWords.add("主页热词1");
+    hotWords.add("主页热词2");
+    hotWords.add("热词3");
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -123,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   delegate: BarDelegate(
 
+                    hotWords: hotWords
                   ),
                   pinned: true,
 
