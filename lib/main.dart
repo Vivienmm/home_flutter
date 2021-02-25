@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:chinaso_http_package/log_error.dart';
-import 'package:chinaso_ui_package/ShadedText.dart';
+import 'package:chinaso_ui_package/shader_txt.dart';
 
 import 'package:flutter/material.dart';
 import 'package:home_flutter/http/city_list_entity.dart';

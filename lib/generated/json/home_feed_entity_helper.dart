@@ -86,7 +86,6 @@ Map<String, dynamic> homeFeedEntityInnerToJson(HomeFeedEntityInner entity) {
 	data['id'] = entity.id;
 	data['imageStyle'] = entity.imageStyle;
 	data['pictureList'] = entity.pictureList;
-
 	data['publishedAt'] = entity.publishedAt;
 	data['sourceName'] = entity.sourceName;
 	data['summary'] = entity.summary;

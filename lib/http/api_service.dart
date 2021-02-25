@@ -15,7 +15,10 @@ class ApiInterface {
         {"pageNo":pageNo}.toString());
   }
 
+  static Future<String> getHotNews() async {
 
+    return NetUtil.getJson(HttpConstant.HOT_WORDS,{}.toString());
+  }
 //  static Future<Map<String, dynamic>> getSmsCode(
 //      String flag, String phoneNum, String vefifyCode) async {
 //    /// 调用封装的NetUtil ，这里合理选择方法即可，比如请求体的方式传参数

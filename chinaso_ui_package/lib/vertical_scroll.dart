@@ -1,10 +1,11 @@
 import 'dart:async';
 
+import 'package:chinaso_ui_package/res.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class VerticalScroll extends StatefulWidget {
-  //final List<String> arrTexts;
+  final List<String> arrTexts;
  // final int maxListNum;
   final Color textColor;
   final double textSize;
@@ -12,12 +13,12 @@ class VerticalScroll extends StatefulWidget {
 
   VerticalScroll(
       {Key key,
-      //  @required this.arrTexts,
+        @required this.arrTexts,
       //  @required this.maxListNum,
         this.textColor = Colors.black,
         this.textSize = 15,
         this.intervalSeconds = 5}):
-//      : assert(arrTexts != null),
+        assert(arrTexts != null),
 //        assert(maxListNum > 0),
         super(key: key);
 
@@ -76,7 +77,7 @@ class _VerticalScrollState extends State<VerticalScroll> with WidgetsBindingObse
         key: _myKey,
         //禁止手动滑动
         physics: new NeverScrollableScrollPhysics(),
-        itemCount: 5,
+        itemCount: widget.arrTexts.length,
         //item固定高度
         itemExtent: 30,
         scrollDirection: Axis.vertical,
@@ -84,7 +85,7 @@ class _VerticalScrollState extends State<VerticalScroll> with WidgetsBindingObse
         itemBuilder: (context, index) {
           return Container(
             alignment: Alignment.centerLeft,
-            child: Text("【猎毒人】吕云鹏计划通楚下线？" + index.toString(),style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+            child: Text(widget.arrTexts[index],style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal,color: Colours.sourceColor)),
           );
         });
 
