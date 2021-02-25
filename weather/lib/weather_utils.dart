@@ -1,3 +1,4 @@
+import 'package:chinaso_ui_package/res.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/data/city_list_entity.dart';
 class Utils {
@@ -17,7 +18,7 @@ class Utils {
         softWrap: false,
         style: TextStyle(
           fontSize: 14.0,
-          color: Color(0xFF666666),
+          color: Colours.indicatorSelectedColor,
         ),
       ),
     );
@@ -28,8 +29,8 @@ class Utils {
     return ListTile(
       title: Text(model.city),
       onTap: () {
-       // LogUtil.e("onItemClick : $model");
-        Utils.showSnackBar(context, 'onItemClick : ${model.city}');
+        Navigator.pop(context,model.city);
+       // Utils.showSnackBar(context, 'onItemClick : ${model.city}');
       },
     );
 

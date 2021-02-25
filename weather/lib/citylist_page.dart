@@ -13,7 +13,8 @@ import 'package:weather/weather_api.dart';
 import 'package:weather/weather_utils.dart';
 
 import 'button_search.dart';
-import 'object_util.dart';
+import 'util/object_util.dart';
+
 
 class CityListPage extends StatefulWidget {
   @override
@@ -184,17 +185,6 @@ class _CityListPageState extends State<CityListPage> {
         ],
 
       )
-//      child: Row(
-//        children: <Widget>[
-//
-//          Container(
-//            width: 0.33,
-//            height: 14.0,
-//            color: Color(0xFFEFEFEF),
-//          ),
-//
-//        ],
-//      ),
     );
   }
 
@@ -271,6 +261,7 @@ class _CityListPageState extends State<CityListPage> {
                       child: AzListView(
                         data: showList,
                         itemCount: showList.length,
+                        indexBarOptions: IndexBarOptions(textStyle:TextStyle(color: Colours.indicatorSelectedColor)),
                         itemBuilder: (BuildContext context, int index) {
                           CityListum model = showList[index];
                           return Utils.getListItem(context, model);

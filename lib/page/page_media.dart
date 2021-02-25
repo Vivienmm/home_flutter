@@ -1,10 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:home_flutter/http/home_feed_entity.dart';
-import 'package:weather/loc_baidu.dart';
-import 'package:weather/weather.dart';
-
-import '../utils/string_util.dart';
-import 'page_default.dart';
+import 'package:weather/util/loc_baidu.dart';
 
 class MediaPage extends StatelessWidget{
 

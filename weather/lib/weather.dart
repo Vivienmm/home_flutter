@@ -6,8 +6,7 @@ import 'package:chinaso_http_package/log_error.dart';
 import 'package:chinaso_ui_package/res.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weather/data/city_list_entity.dart';
-import 'package:weather/json/city_list_entity_helper.dart';
+import 'package:weather/citylist_page.dart';
 import 'package:weather/json/weather_entity_helper.dart';
 
 import 'package:weather/weather_api.dart';
@@ -31,23 +30,16 @@ class _WeatherHomeState extends State<WeatherHome> {
 
 
   Future getWeather(String  city) {
-
     /// 调用
     WeatherApiInterface.getWeather(
         city) .then((data) {
-      /// 请求成功 进行成功的逻辑处理
-      print('http--ss>------请求成功');
       Map<String, dynamic> responseData =  jsonDecode(data);
 
       Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"]));
-      print('http--weathers>------responseDataInner'+ responseDataInner.toString());
 
       WeatherEntity entity=new WeatherEntity();
       weatherEntityFromJson(entity,responseDataInner);
       city=entity.city;
-
-      print('http--weathers>------real请求成功'+responseDataInner["real"].toString());
-
 
       weatherRealFromJson(entityReal,jsonDecode(jsonEncode(responseDataInner["real"])));
       imageUrl=entityReal.weatherIcon[0];
@@ -89,36 +81,15 @@ class _WeatherHomeState extends State<WeatherHome> {
     super.dispose();
   }
 
-  List<Widget> render(BuildContext context, List children) {
-    return ListTile.divideTiles(
-        context: context,
-        tiles: children.map((dynamic data) {
-          return buildListTile(
-              context, data["title"], data["subtitle"], data["url"]);
-        })).toList();
-  }
 
-  Widget buildListTile(
-      BuildContext context, String title, String subtitle, String url) {
-
-    return new ListTile(
-      onTap: () {
-        Navigator.of(context).pushNamed(url);
-      },
-      isThreeLine: true,
-      dense: false,
-      leading: CircleAvatar(
-
-        backgroundImage: NetworkImage(imageUrl),
-      ),
-      title: new Text(title),
-      subtitle: new Text(subtitle),
-      trailing: new Icon(
-        Icons.arrow_right,
-        color: Colors.blueAccent,
-      ),
-
-    );
+  _toTransferForResult(BuildContext context) async {
+    final dataFromOtherPage = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CityListPage()),
+    ) as String;
+    print("返回数据"+dataFromOtherPage);
+    city=dataFromOtherPage;
+    getWeather(city);
   }
 
   @override
@@ -126,7 +97,8 @@ class _WeatherHomeState extends State<WeatherHome> {
 
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed("/location/basicloc");
+        _toTransferForResult(context);
+        //Navigator.of(context).pushNamed("/location/basicloc");
       },
       child:Container(
         height: 70,
@@ -193,7 +165,6 @@ class _WeatherHomeState extends State<WeatherHome> {
 
 
         ),
-
 
       ) ,
     );
