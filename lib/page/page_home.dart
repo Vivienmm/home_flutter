@@ -1,11 +1,16 @@
 
+import 'dart:convert';
+
+import 'package:chinaso_http_package/log_error.dart';
 import 'package:chinaso_ui_package/refresh_indicator.dart';
 import 'package:chinaso_ui_package/vertical_scroll.dart';
 import 'package:chinaso_ui_package/vertical_scroll_txt.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
+import 'package:home_flutter/generated/json/hot_news_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
+import 'package:home_flutter/http/hot_news_entity.dart';
 import 'package:home_flutter/page/page_feed.dart';
 import 'package:home_flutter/ui/search_bar_delegate.dart';
 import 'package:scroll_text/scroll_text.dart';
@@ -29,13 +34,50 @@ class _MyHomePageState extends State<MyHomePage> {
   int pageNo=0;
   List<String> hotWords=new List<String>();
 
+  Future getHotWords (){
+
+    /// 调用
+    ApiInterface.getHotNews() .then((data) {
+      /// 请求成功 进行成功的逻辑处
+      Map<String, dynamic> responseData =  jsonDecode(data);
+      print("hot-responseData"+((responseData["data"])as List)[0].toString());
+
+     // Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"] as List));
+
+      List<String> hots=new List<String>();
+
+      ((responseData["data"])as List).forEach((v) {
+
+        print("hot-forEach "+v.toString());
+        HotNewsEntity num=new HotNewsEntity();
+
+        hotNewsEntityFromJson(num, jsonDecode(jsonEncode(v)));
+        print("hot-"+num.eventName);
+        hots.add(num.eventName);
+        //  listums.add(new CityListum().fromJson(v));
+      });
+      setState(() {
+        hotWords.addAll(hots);
+      });
+
+
+    }).catchError((errorMsg) {
+      /// 请求失败 dio异常
+
+      /// 请求失败  进入了自定义的error拦截
+      if (errorMsg is LogicError) {
+        LogicError logicError = errorMsg;
+        print("hot-"+logicError.toString());
+      } else {
+
+      }
+    });
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    hotWords.add("主页热词1");
-    hotWords.add("主页热词2");
-    hotWords.add("热词3");
+    getHotWords ();
   }
   @override
   Widget build(BuildContext context) {

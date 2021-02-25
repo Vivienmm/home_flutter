@@ -162,7 +162,6 @@ class _HomeState extends State<FeedNews> {
   }
 
   Future getFeed (){
-    print('getFeed--'+mCurPage.toString());
 
     /// 调用
     ApiInterface.getFeed(

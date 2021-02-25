@@ -21,6 +21,9 @@ class BarDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
 
+    if(hotWords.length<1){
+      hotWords.add("搜新闻 上国搜");
+    }
     return Container(
       height: 50,
       width: 260,
@@ -111,36 +114,5 @@ class BarDelegate extends SliverPersistentHeaderDelegate {
     return true;
   }
 
-  Future getHotWords (){
 
-    /// 调用
-    ApiInterface.getHotNews() .then((data) {
-      /// 请求成功 进行成功的逻辑处
-      Map<String, dynamic> responseData =  jsonDecode(data);
-
-      Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"] as List));
-      List<HotNewsEntity> hots=new List<HotNewsEntity>();
-
-
-      ((responseData["data"])as List).forEach((v) {
-
-        HotNewsEntity num=new HotNewsEntity();
-        hotNewsEntityFromJson(num, jsonDecode(jsonEncode(v)));
-        hots.add(num);
-        //  listums.add(new CityListum().fromJson(v));
-      });
-
-
-    }).catchError((errorMsg) {
-      /// 请求失败 dio异常
-
-      /// 请求失败  进入了自定义的error拦截
-      if (errorMsg is LogicError) {
-        LogicError logicError = errorMsg;
-
-      } else {
-
-      }
-    });
-  }
 }
