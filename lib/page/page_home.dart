@@ -46,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
           child: NestedScrollView(
+              key: UniqueKey(),
             headerSliverBuilder: (contex, _) {
               return [
                 //sliver

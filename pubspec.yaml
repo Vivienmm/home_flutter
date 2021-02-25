@@ -93,6 +93,7 @@ flutter:
     - assets/setting_icon.png
     - assets/voice_symbol.png
     - assets/home_logo.png
+    - assets/zhong_icon.png
     - assets/loc_symbol.png
     - assets/icon_close.png
     - assets/channel/channel_app.png

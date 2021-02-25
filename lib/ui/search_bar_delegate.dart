@@ -13,7 +13,6 @@ class BarDelegate extends SliverPersistentHeaderDelegate {
   List<String> hotWords=new List<String>();
 
 
-
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -22,63 +21,81 @@ class BarDelegate extends SliverPersistentHeaderDelegate {
     hotWords.add("热词2");
     hotWords.add("热词3");
 
-    return
-      Container(
+    return Container(
       height: 50,
-      width: double.infinity,
-      margin: EdgeInsets.only(left:10,right:10,bottom: 10),
-      padding: EdgeInsets.only(left: 15, right: 15),
+      width: 260,
       decoration: new BoxDecoration(
-
-        image: new DecorationImage(
-
-          image: new AssetImage('assets/input_bg.png'),
-          //这里是从assets静态文件中获取的，也可以new NetworkImage(）从网络上获取
-          centerSlice: new Rect.fromLTRB(270.0, 180.0, 1360.0, 730.0),
-        ),
+        color: Colors.white,
       ),
-
-      child: Row(
-
-        children: <Widget>[
-
+      margin: EdgeInsets.only(left:10,right:10,bottom: 10),
+      child:Row(
+        children: [
           Container(
-            height: 30,
-            width: 230,
-            child:VerticalScroll(
-              arrTexts:hotWords,
+            width: isShow(shrinkOffset),
+            child:Image(image:AssetImage("assets/zhong_icon.png")),
+
             ) ,
-          ),
+    Expanded(
 
-          SizedBox(
-            width: 15,
-          ),
+          child:Container(
+            height: 50,
+            width: 260,
+            padding: EdgeInsets.only(left: 15, right: 15),
+            decoration: new BoxDecoration(
 
-          Flexible(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.centerRight,
+              image: new DecorationImage(
 
-              child: Container(
-                width: 15,
-                height: 24,
-                child: Image.asset(
-                    'assets/voice_symbol.png'
-                ),
+                image: new AssetImage('assets/input_bg.png'),
+                //这里是从assets静态文件中获取的，也可以new NetworkImage(）从网络上获取
+                centerSlice: new Rect.fromLTRB(270.0, 180.0, 1360.0, 730.0),
               ),
             ),
-          ),
-        ],
+
+            child: Row(
+
+              children: <Widget>[
+
+                Container(
+                  height: 30,
+                  width: 230,
+                  child:VerticalScroll(
+                    arrTexts:hotWords,
+                  ) ,
+                ),
+
+                SizedBox(
+                  width: 15,
+                ),
+
+                Flexible(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+
+                    child: Container(
+                      width: 15,
+                      height: 24,
+                      child: Image.asset(
+                          'assets/voice_symbol.png'
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ) ,
+    ),],
       ),
+
     );
+
   }
 
-  Color makeStickyHeaderTextColor(shrinkOffset, isIcon) {
+  double isShow(double shrinkOffset) {
     if(shrinkOffset <= 50) {
-      return isIcon ? Colors.white : Colors.transparent;
+      return 1;
     } else {
-      final int alpha = (shrinkOffset / (this.maxExtent - this.minExtent) * 255).clamp(0, 255).toInt();
-      return Color.fromARGB(alpha, 0, 0, 0);
+      return 30;
     }
   }
 
@@ -87,6 +104,7 @@ class BarDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   double get minExtent => 55;
+
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {

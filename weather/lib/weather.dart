@@ -78,6 +78,8 @@ class _WeatherHomeState extends State<WeatherHome> {
   @override
   void initState() {
     super.initState();
+    entityReal.temper="0";
+    entityReal.weather="晴";
     getWeather("北京市");
   }
 
