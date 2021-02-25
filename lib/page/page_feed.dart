@@ -3,18 +3,19 @@
 import 'dart:convert';
 
 import 'package:chinaso_http_package/log_error.dart';
-import 'package:chinaso_ui_package/build_more_footer.dart';
+
 import 'package:chinaso_ui_package/item/item_no_img.dart';
 import 'package:chinaso_ui_package/item/item_one_img.dart';
 import 'package:chinaso_ui_package/item/item_three_imgs.dart';
 import 'package:chinaso_ui_package/res.dart';
+import 'package:chinaso_ui_package/widget/build_more_footer.dart';
 import 'package:flutter/material.dart';
 import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
 import 'package:home_flutter/http/home_feed_entity.dart';
 import 'package:home_flutter/page/page_channel.dart';
 import 'package:home_flutter/page/page_web.dart';
-import 'package:weather/data/feed_data_entity.dart';
+
 
 class FeedNews extends StatefulWidget {
   FeedNews({Key key}) : super(key: key);
@@ -32,24 +33,10 @@ class _HomeState extends State<FeedNews> {
   num mCurPage = 1;
   List<HomeFeedEntityInner> mAppResultList = [];
 
-
-
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     getFeed();
-    //监听控制器
-//    scroll.addListener(() {
-//      if (scroll.position.pixels == scroll.position.maxScrollExtent) {
-//        print("到底了");
-//      }else{
-//        getFeed();
-//      }
-//    });
-
 
   }
 

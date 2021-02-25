@@ -1,12 +1,9 @@
-import 'dart:convert';
 
-import 'package:chinaso_http_package/log_error.dart';
-import 'package:chinaso_ui_package/vertical_scroll.dart';
+
+import 'package:chinaso_ui_package/widget/vertical_scroll.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:home_flutter/generated/json/hot_news_entity_helper.dart';
-import 'package:home_flutter/http/api_service.dart';
-import 'package:home_flutter/http/hot_news_entity.dart';
+
 
 class BarDelegate extends SliverPersistentHeaderDelegate {
 
@@ -57,7 +54,6 @@ class BarDelegate extends SliverPersistentHeaderDelegate {
             child: Row(
 
               children: <Widget>[
-
                 Container(
                   height: 30,
                   width: 230,

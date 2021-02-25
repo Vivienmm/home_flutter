@@ -1,23 +1,12 @@
-import 'dart:convert';
-
-import 'package:chinaso_http_package/log_error.dart';
-import 'package:chinaso_ui_package/shader_txt.dart';
 
 import 'package:flutter/material.dart';
-import 'package:home_flutter/http/city_list_entity.dart';
-import 'package:home_flutter/http/home_feed_entity.dart';
 import 'package:home_flutter/page/page_channel.dart';
 import 'package:home_flutter/page/page_home.dart';
-import 'package:home_flutter/page/page_hot.dart';
 import 'package:home_flutter/page/page_media.dart';
 import 'package:home_flutter/utils/string_util.dart';
 import 'package:weather/citylist_page.dart';
-import 'package:weather/loc_baidu.dart';
-import 'package:weather/weather.dart';
-import 'generated/json/feed_data_entity_helper.dart';
-import 'generated/json/home_feed_entity_helper.dart';
-import 'http/api_service.dart';
-import 'http/feed_data_entity.dart';
+
+
 
 void main() {
   runApp(MyApp());
@@ -70,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     routes: {
-      "/location/basicloc": (BuildContext context) => new CityListPage(), // 基础定位
+        "/location/basicloc": (BuildContext context) => new CityListPage(), // 基础定位
     }
     );
   }

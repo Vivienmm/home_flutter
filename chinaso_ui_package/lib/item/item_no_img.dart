@@ -1,6 +1,8 @@
-import 'package:chinaso_ui_package/bottom_source_txt.dart';
-import 'package:chinaso_ui_package/title_txt.dart';
+
+import 'package:chinaso_ui_package/txt/title_txt.dart';
 import 'package:flutter/material.dart';
+
+import 'bottom_source_txt.dart';
 
 class ItemNoImg extends StatefulWidget{
 

@@ -1,10 +1,10 @@
 
-import 'package:chinaso_ui_package/date_util.dart';
+
 import 'package:chinaso_ui_package/res.dart';
+import 'package:chinaso_ui_package/util/date_transform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'date_transform.dart';
 
 class BottomText extends StatelessWidget{
   final String source;

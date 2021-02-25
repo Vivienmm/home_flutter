@@ -2,22 +2,18 @@
 import 'dart:convert';
 
 import 'package:chinaso_http_package/log_error.dart';
-import 'package:chinaso_ui_package/refresh_indicator.dart';
-import 'package:chinaso_ui_package/vertical_scroll.dart';
-import 'package:chinaso_ui_package/vertical_scroll_txt.dart';
+import 'package:chinaso_ui_package/widget/refresh_indicator.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
 import 'package:home_flutter/generated/json/hot_news_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
 import 'package:home_flutter/http/hot_news_entity.dart';
 import 'package:home_flutter/page/page_feed.dart';
 import 'package:home_flutter/ui/search_bar_delegate.dart';
-import 'package:scroll_text/scroll_text.dart';
 import 'package:weather/weather.dart';
 
 import 'package:flutter/material.dart';
-import 'package:home_flutter/http/home_feed_entity.dart';
 
 
 class MyHomePage extends StatefulWidget {
