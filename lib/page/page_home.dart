@@ -10,6 +10,7 @@ import 'package:home_flutter/generated/json/hot_news_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
 import 'package:home_flutter/http/hot_news_entity.dart';
 import 'package:home_flutter/page/page_feed.dart';
+import 'package:home_flutter/page/page_setting.dart';
 import 'package:home_flutter/ui/search_bar_delegate.dart';
 import 'package:weather/weather.dart';
 
@@ -27,8 +28,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  int pageNo=0;
+   int pageNo=0;
   List<String> hotWords=new List<String>();
+  var _scrollController = ScrollController();
+  var _showBackTop = false;
+
 
   Future getHotWords (){
 
@@ -36,15 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
     ApiInterface.getHotNews() .then((data) {
       /// 请求成功 进行成功的逻辑处
       Map<String, dynamic> responseData =  jsonDecode(data);
-      print("hot-responseData"+((responseData["data"])as List)[0].toString());
-
-     // Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"] as List));
-
       List<String> hots=new List<String>();
 
       ((responseData["data"])as List).forEach((v) {
-
-        print("hot-forEach "+v.toString());
         HotNewsEntity num=new HotNewsEntity();
 
         hotNewsEntityFromJson(num, jsonDecode(jsonEncode(v)));
@@ -74,6 +72,18 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
     getHotWords ();
+    // 对 scrollController 进行监听
+    _scrollController.addListener(() {
+      // _scrollController.position.pixels 获取当前滚动部件滚动的距离
+      // window.physicalSize.height 获取屏幕高度
+      // 当滚动距离大于 800 后，显示回到顶部按钮
+      if(_scrollController.position.pixels >= 100&&!_showBackTop){
+        setState(() {
+          _showBackTop=true;
+        });
+      }
+   //   setState(() => _showBackTop = _scrollController.position.pixels >= 800);
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -119,15 +129,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                   onTap: (){
                                       print("点击了 ");
 
-                                     Fluttertoast.showToast(
-                                         msg:  "点击设置",
-                                         toastLength: Toast.LENGTH_SHORT,
-                                         gravity: ToastGravity.CENTER,
-                                         timeInSecForIos: 1,
-                                         backgroundColor: Colors.red,
-                                         textColor: Colors.white,
-                                         fontSize: 16.0
-                                     );
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingPage()));
+//                                     Fluttertoast.showToast(
+//                                         msg:  "点击设置",
+//                                         toastLength: Toast.LENGTH_SHORT,
+//                                         gravity: ToastGravity.CENTER,
+//                                         timeInSecForIos: 1,
+//                                         backgroundColor: Colors.red,
+//                                         textColor: Colors.white,
+//                                         fontSize: 16.0
+//                                     );
                                      },
                                   child: Container(
                                     width: 15,
@@ -146,19 +157,39 @@ class _MyHomePageState extends State<MyHomePage> {
                           height: 15,
                         ),
 
-                       Align(
-                          alignment: Alignment.center,
+                       Container(
+                         width: double.infinity,
+                         height: 40,
+                         child: Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
 
-                          child: Container(
-                            width: 146,
-                            height: 34,
-                            child: Image.asset(
-                                'assets/home_logo.png'
-                            ),
-                          ),
-                        ),
+                           children: [
+                             Align(
+                                 alignment: Alignment.center,
 
+                                 child: Container(
+                                   width: 160,
+                                   height: 34,
+                                   child: Image.asset(
+                                       'assets/home_logo.png'
+                                   ),
+                                 ),
+                             ),
+                             Align(
+                                 alignment: Alignment.bottomRight,
 
+                                 child: Container(
+                                   width: 52,
+                                   child: Image.asset(
+                                       'assets/sub_logo.png'
+                                   ),
+
+                                 )
+                             ),
+                           ],
+                         )
+                         ,
+                       )
                       ],
                     ),
                   ),
@@ -176,8 +207,24 @@ class _MyHomePageState extends State<MyHomePage> {
               ];
             },
             body: new FeedNews(),
+            controller: _scrollController,
           ),
         ),
+        floatingActionButton: _showBackTop // 当需要显示的时候展示按钮，不需要的时候隐藏，设置 null
+            ? FloatingActionButton(
+          onPressed: () {
+            // scrollController 通过 animateTo 方法滚动到某个具体高度
+            // duration 表示动画的时长，curve 表示动画的运行方式，flutter 在 Curves 提供了许多方式
+            _scrollController.animateTo(0.0, duration: Duration(milliseconds: 500), curve: Curves.decelerate);
+            _showBackTop=false;
+            setState(() {
+
+            });
+          },
+          child: Icon(Icons.vertical_align_top),
+        )
+            : null,
+
       );
 
   }
