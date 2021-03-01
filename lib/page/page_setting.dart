@@ -52,6 +52,8 @@ class SettingPage extends StatelessWidget{
             Card(
               margin: EdgeInsets.all(10),
               elevation: 20,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),),
               child: Column(
                 children: [
 
@@ -61,13 +63,13 @@ class SettingPage extends StatelessWidget{
                     child:Text("系统设置",style: TextStyle(color: Colours.titleColor,fontSize: 17,fontWeight: FontWeight.bold),textAlign: TextAlign.left,),
                   ),
 
-                  Divider(),
+                  Divider(indent:16,endIndent:16),
 
                   ListTile(title: Text("清除缓存"),trailing: new Text("xMB"),onTap: () => _itemClick(HttpConstant.COOPERATION_URL),),
                   ListTile(title: Text("检查更新"),trailing: new Text("V 5.1.4"),onTap: () => _itemClick(HttpConstant.COOPERATION_URL),),
                   ListTile(title: Text("字体大小"),trailing: new Icon(Icons.arrow_forward_ios),onTap: () => _itemClick(HttpConstant.COOPERATION_URL),),
 
-                  Divider(height:6 ,color: Colors.grey,),
+                  Divider(height:10 ,thickness:6,color: Colours.dividerColor,indent:16,endIndent:16),
                   ListTile(title: Text("合作推广"),trailing: new Icon(Icons.arrow_forward_ios),onTap: () => _itemClick(HttpConstant.COOPERATION_URL),),
                   ListTile(title: Text("使用帮助"),trailing: new Icon(Icons.arrow_forward_ios),onTap: () => _itemClick(HttpConstant.HELP_URL),),
                   ListTile(title: Text("意见反馈"),trailing: new Icon(Icons.arrow_forward_ios),onTap: () => _itemClick(HttpConstant.FEED_BACK_URL),),
