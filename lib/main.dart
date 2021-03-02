@@ -43,6 +43,7 @@ class _MyAppState extends State<MyApp> {
         body: this._pageList[this._currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           onTap: (int index) {
+
             setState(() {
               this._currentIndex = index;
             });
@@ -51,6 +52,7 @@ class _MyAppState extends State<MyApp> {
           fixedColor: Colors.pink,
           selectedFontSize: 12,
           type: BottomNavigationBarType.fixed,
+
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), title: Text(Strings.tabIcon1)),
             BottomNavigationBarItem(icon: Icon(Icons.list), title: Text(Strings.tabIcon2)),

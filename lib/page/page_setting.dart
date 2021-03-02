@@ -117,7 +117,7 @@ class _SettingPageState extends State<SettingPage> {
 
   }
   void _itemClick(String url) {
-    Navigator.push(mContext, MaterialPageRoute(builder: (cx)=>ItemInfoDetail(url:url,)));
+    Navigator.push(mContext, MaterialPageRoute(builder: (cx)=>WebDetail(url:url,)));
   }
 
   clearCache() {

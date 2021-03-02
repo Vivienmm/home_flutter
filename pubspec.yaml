@@ -110,3 +110,9 @@ flutter:
     - assets/channel/channel_story.png
     - assets/channel/channel_video.png
     - assets/channel/channel_young.png
+    - assets/bottom_bar/icon_search_back.png
+    - assets/bottom_bar/icon_search_home.png
+    - assets/bottom_bar/icon_search_more.png
+    - assets/bottom_bar/icon_search_next.png
+    - assets/bottom_bar/icon_search_next_disable.png
+    - assets/bottom_bar/icon_search_share.png

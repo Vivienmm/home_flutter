@@ -1,13 +1,15 @@
 import 'dart:async';
 
+import 'package:chinaso_ui_package/res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:home_flutter/utils/string_util.dart';
 
-class ItemInfoDetail extends StatefulWidget{
+class WebDetail extends StatefulWidget{
 
 
   String url;
-  ItemInfoDetail({this.url});
+  WebDetail({this.url});
 
   @override
   State<StatefulWidget> createState() {
@@ -17,7 +19,7 @@ class ItemInfoDetail extends StatefulWidget{
 
 }
 
-class InfoDetail extends State<ItemInfoDetail>{
+class InfoDetail extends State<WebDetail>{
 
 
   String url="https://guangdiu.com/api/showdetail.php";
@@ -51,19 +53,54 @@ class InfoDetail extends State<ItemInfoDetail>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return WebviewScaffold(
-      appBar: AppBar(
-        title: Text("详情页"),
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
-            onPressed: (){
-              Navigator.pop(context);
-            }),
+          appBar: AppBar(
+            title: Text("详情页"),
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
+                onPressed: (){
+                  Navigator.pop(context);
+                }),
+          ),
+
+          url: url,
+          withJavascript: true,
+          withLocalStorage: true,
+          withZoom: false,
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (int index) {
+          switch(index){
+            case 1:
+
+              break;
+            case 2:
+              backHome();
+              break;
+            default:
+              break;
+          }
+          setState(() {
+      //  this._currentIndex = index;
+              });
+            },
+        selectedFontSize: 12,
+        //fixedColor: Colours.titleColor,
+        selectedItemColor: Colours.titleColor,
+        unselectedItemColor: Colours.titleColor,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(label: (" "),icon: ImageIcon(AssetImage('assets/bottom_bar/icon_search_back.png'),),),
+          BottomNavigationBarItem(label: (" "),icon:ImageIcon(AssetImage('assets/bottom_bar/icon_search_next.png'), ), ),
+          BottomNavigationBarItem(label: (" "),icon:ImageIcon(AssetImage('assets/bottom_bar/icon_search_home.png')), ),
+          BottomNavigationBarItem(label: (" "),icon:ImageIcon(AssetImage('assets/bottom_bar/icon_search_share.png')), ),
+          BottomNavigationBarItem(label: (" "),icon:ImageIcon(AssetImage('assets/bottom_bar/icon_search_more.png')), ),
+
+        ],
       ),
-      url: url,
-      withJavascript: true,
-      withLocalStorage: true,
-      withZoom: false,
     );
+  }
+
+  void backHome() {
+    Navigator.pop(context);
   }
 
 }

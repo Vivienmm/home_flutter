@@ -130,15 +130,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                       print("点击了 ");
 
                                       Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingPage()));
-//                                     Fluttertoast.showToast(
-//                                         msg:  "点击设置",
-//                                         toastLength: Toast.LENGTH_SHORT,
-//                                         gravity: ToastGravity.CENTER,
-//                                         timeInSecForIos: 1,
-//                                         backgroundColor: Colors.red,
-//                                         textColor: Colors.white,
-//                                         fontSize: 16.0
-//                                     );
                                      },
                                   child: Container(
                                     width: 15,

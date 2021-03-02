@@ -183,7 +183,7 @@ class _HomeState extends State<FeedNews> {
   }
 
   void _itemClick(HomeFeedEntityInner mAppResultList) {
-    Navigator.push(context, MaterialPageRoute(builder: (cx)=>ItemInfoDetail(url:mAppResultList.url,)));
+    Navigator.push(context, MaterialPageRoute(builder: (cx)=>WebDetail(url:mAppResultList.url,)));
   }
 
 }
