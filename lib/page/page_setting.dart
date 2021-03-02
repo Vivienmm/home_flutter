@@ -1,19 +1,48 @@
 
 
+import 'package:chinaso_ability/cache_manager.dart';
+import 'package:chinaso_ability/cache_setting.dart';
 import 'package:chinaso_ui_package/res.dart';
 import 'package:chinaso_ui_package/widget/info_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_flutter/http/net_api_constant.dart';
 
 import 'page_web.dart';
 
-class SettingPage extends StatelessWidget{
+class SettingPage extends StatefulWidget{
 
+
+
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
   BuildContext mContext;
+  String cacheSize="0M";
+
+   getCache()async {
+    double value = await CacheManager.loadApplicationCache();
+    String str = CacheManager.formatSize(value);
+    print('获取app缓存: ' + str);
+
+    setState(() {
+      cacheSize=str;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCache();
+  }
   @override
   Widget build(BuildContext context) {
     mContext=context;
+
     // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.white,
@@ -65,7 +94,7 @@ class SettingPage extends StatelessWidget{
 
                   Divider(indent:16,endIndent:16),
 
-                  ListTile(title: Text("清除缓存"),trailing: new Text("xMB"),onTap: () => _itemClick(HttpConstant.COOPERATION_URL),),
+                  ListTile(title: Text("清除缓存"),trailing: new Text(cacheSize),onTap: () => clearCache(),),
                   ListTile(title: Text("检查更新"),trailing: new Text("V 5.1.4"),onTap: () => _itemClick(HttpConstant.COOPERATION_URL),),
                   ListTile(title: Text("字体大小"),trailing: new Icon(Icons.arrow_forward_ios),onTap: () => _itemClick(HttpConstant.COOPERATION_URL),),
 
@@ -90,5 +119,23 @@ class SettingPage extends StatelessWidget{
   void _itemClick(String url) {
     Navigator.push(mContext, MaterialPageRoute(builder: (cx)=>ItemInfoDetail(url:url,)));
   }
+
+  clearCache() {
+    CacheManager.clearApplicationCache();
+    Fluttertoast.showToast(
+        msg:  "缓存清除完成",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colours.titleColor,
+        fontSize: 16.0
+    );
+    setState(() {
+      cacheSize="0M";
+    });
+  }
+
+
 }
 

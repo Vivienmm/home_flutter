@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// * @author Suyw
+/// * @description: 颜色集合
+/// * @date :2021/3/1
 class Colours {
   static const Color gray_33 = Color(0xFF333333);
   static const Color gray_66 = Color(0xFF666666);

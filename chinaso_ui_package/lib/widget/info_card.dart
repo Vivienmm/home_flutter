@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../res.dart';
 
 /// * @author Suyw
-/// * @description:
+/// * @description: 上面是文字下面是介绍
 /// * @date :2021/3/1
 
 class InfoCard extends StatelessWidget{
@@ -23,6 +23,7 @@ class InfoCard extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     return Column(
       children: <Widget>[
         Container(

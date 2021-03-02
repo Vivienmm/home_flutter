@@ -28,7 +28,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
-
+  #虽然是ability里面调用的，但是总包也需要引用
+  path_provider: ^1.6.27
   fluttertoast: ^3.1.3
   scroll_text: ^0.0.2
   flutter_webview_plugin: ^0.3.11
@@ -36,6 +37,8 @@ dependencies:
     path: ./chinaso_ui_package
   chinaso_http_package:
     path: ./chinaso_http_package
+  chinaso_ability:
+    path: ./chinaso_ability
   weather:
     path: ./weather
 

@@ -54,13 +54,17 @@ class _VerticalScrollState extends State<VerticalScroll> with WidgetsBindingObse
     WidgetsBinding widgetsBinding=WidgetsBinding.instance;
     widgetsBinding.addPostFrameCallback((callback){
       Timer.periodic(new Duration(seconds: 5), (timer){
-        index+=_myKey.currentContext.size.height.toInt();
-        _controller.animateTo((index).toDouble(), duration: new Duration(seconds: 2), curve: Curves.easeOutSine);
-        //滚动到底部从头开始
-        if((index-_myKey.currentContext.size.height.toInt()).toDouble()>_controller.position.maxScrollExtent){
-          _controller.jumpTo(_controller.position.minScrollExtent);
-          index=0;
+        if(null!=_myKey.currentContext){
+          index+=_myKey.currentContext.size.height.toInt();
+          _controller.animateTo((index).toDouble(), duration: new Duration(seconds: 2), curve: Curves.easeOutSine);
+          //滚动到底部从头开始
+          if((index-_myKey.currentContext.size.height.toInt()).toDouble()>_controller.position.maxScrollExtent){
+            _controller.jumpTo(_controller.position.minScrollExtent);
+            index=0;
+          }
         }
+
+
       });
     });
     _controller = new ScrollController(initialScrollOffset: 0);
