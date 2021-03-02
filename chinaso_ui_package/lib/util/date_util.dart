@@ -1,3 +1,5 @@
+import 'package:date_format/date_format.dart';
+
 class DateUtil {
   static String getFormatTime(DateTime mDate) {
     String timestamp =
@@ -27,6 +29,12 @@ class DateUtil {
     return d.abs().inMinutes.toString() +
         ":" +
         (mSecond - d.abs().inMinutes * 60).toString().padLeft(2, '0');
+  }
+
+  static String getToday(){
+    DateTime dateTime= DateTime.now();
+
+    return formatDate(dateTime ,['yyyy', '-', 'mm', '-', 'dd']);
   }
 
 }

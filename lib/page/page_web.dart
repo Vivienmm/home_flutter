@@ -1,33 +1,56 @@
 import 'dart:async';
 
 import 'package:chinaso_ui_package/res.dart';
+import 'package:chinaso_ui_package/util/date_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:home_flutter/entity/history_entity.dart';
 import 'package:home_flutter/utils/string_util.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 class WebDetail extends StatefulWidget{
 
 
   String url;
-  WebDetail({this.url});
+  String title;
+  WebDetail({this.url,this.title});
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return InfoDetail(url: url);
+    return InfoDetail(url: url,title: title);
   }
 
 }
 
 class InfoDetail extends State<WebDetail>{
 
-
+  BuildContext mContext;
+  Database dataBase;
   String url="https://guangdiu.com/api/showdetail.php";
 
-  InfoDetail({this.url});
+  String title="中国搜索";
+  InfoDetail({this.url,this.title});
 
   FlutterWebviewPlugin flutterWebviewPlugin=FlutterWebviewPlugin();
   StreamSubscription<String> _urlchange;
+  Future<void> initDataBase() async {
+    dataBase = await openDatabase(
+      join(await getDatabasesPath(), Strings.CHINASO_DB),
+      onCreate: (db, version) => db.execute(
+          "CREATE TABLE "+Strings.HISTORY_TABLE+" (title TEXT , webUrl TEXT PRIMARY KEY, date TEXT)"),
+      onUpgrade: (db, oldVersion, newVersion) {
+        //dosth for migration
+        print("old:$oldVersion,new:$newVersion");
+      },
+      version: 1,
+    );
+
+    HistoryEntity entity=new HistoryEntity(title:title,webUrl:url,date: DateUtil.getToday());
+     insertHistory(entity, dataBase, Strings.HISTORY_TABLE);
+    print("database:$dataBase");
+  }
 
   @override
   void initState() {
@@ -47,10 +70,16 @@ class InfoDetail extends State<WebDetail>{
     flutterWebviewPlugin.onStateChanged.listen((state){
       print(state.type.toString());
     });
+    initDataBase();
+
+
+
+
   }
 
   @override
   Widget build(BuildContext context) {
+    mContext=context;
     // TODO: implement build
     return WebviewScaffold(
           appBar: AppBar(
@@ -102,7 +131,14 @@ class InfoDetail extends State<WebDetail>{
   }
 
   void backHome() {
-    Navigator.pop(context);
+    Navigator.pop(mContext);
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    dataBase.close();
+    super.dispose();
+
+  }
 }
