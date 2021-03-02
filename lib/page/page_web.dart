@@ -54,12 +54,14 @@ class InfoDetail extends State<WebDetail>{
     // TODO: implement build
     return WebviewScaffold(
           appBar: AppBar(
-            title: Text("详情页"),
-            leading: IconButton(
-                icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
-                onPressed: (){
-                  Navigator.pop(context);
-                }),
+            toolbarHeight: 1,
+            backgroundColor:Colors.white ,
+//            title: Text("详情页"),
+//            leading: IconButton(
+//                icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
+//                onPressed: (){
+//                  Navigator.pop(context);
+//                }),
           ),
 
           url: url,
