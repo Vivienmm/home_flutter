@@ -49,6 +49,7 @@ class InfoDetail extends State<WebDetail>{
 
     HistoryEntity entity=new HistoryEntity(title:title,webUrl:url,date: DateUtil.getToday());
      insertHistory(entity, dataBase, Strings.HISTORY_TABLE);
+
     print("database:$dataBase");
   }
 

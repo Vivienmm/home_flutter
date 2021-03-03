@@ -1,9 +1,10 @@
+import 'package:azlistview/azlistview.dart';
 import 'package:sqflite/sqflite.dart';
 
 /// * @author Suyw
 /// * @description: 创建web页历史
 /// * @date :2021/3/2
-class HistoryEntity {
+class HistoryEntity extends ISuspensionBean{
   String title;
   String webUrl;
   String date;
@@ -27,6 +28,12 @@ class HistoryEntity {
       'webUrl': webUrl,
       'date': date,
     };
+  }
+
+  @override
+  String getSuspensionTag() {
+    print("getSuspensionTag"+date);
+    return date;
   }
 }
 
