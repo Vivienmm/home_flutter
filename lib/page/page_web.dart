@@ -5,6 +5,7 @@ import 'package:chinaso_ui_package/util/date_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:home_flutter/entity/history_entity.dart';
+import 'package:home_flutter/ui/bottom_web.dart';
 import 'package:home_flutter/utils/string_util.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -16,6 +17,7 @@ class WebDetail extends StatefulWidget{
   String title;
   WebDetail({this.url,this.title});
 
+  int type=0;
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -25,11 +27,16 @@ class WebDetail extends StatefulWidget{
 }
 
 class InfoDetail extends State<WebDetail>{
-
+  List<String> nameItems = <String>[
+    '添加收藏',
+    '收藏列表',
+    '复制链接',
+    '刷新',
+  ];
   BuildContext mContext;
   Database dataBase;
   String url="https://guangdiu.com/api/showdetail.php";
-
+  final _bottomSheetScaffoldKey = GlobalKey<ScaffoldState>();
   String title="中国搜索";
   InfoDetail({this.url,this.title});
 
@@ -80,55 +87,52 @@ class InfoDetail extends State<WebDetail>{
 
   @override
   Widget build(BuildContext context) {
-    mContext=context;
+
     // TODO: implement build
-    return WebviewScaffold(
-          appBar: AppBar(
-            toolbarHeight: 1,
-            backgroundColor:Colors.white ,
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 1,
+        backgroundColor: Colors.white,
 //            title: Text("详情页"),
 //            leading: IconButton(
 //                icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
 //                onPressed: (){
 //                  Navigator.pop(context);
 //                }),
-          ),
-
-          url: url,
-          withJavascript: true,
-          withLocalStorage: true,
-          withZoom: false,
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (int index) {
-          switch(index){
-            case 1:
-
-              break;
-            case 2:
-              backHome();
-              break;
-            default:
-              break;
-          }
-          setState(() {
-      //  this._currentIndex = index;
-              });
-            },
-        selectedFontSize: 12,
-        //fixedColor: Colours.titleColor,
-        selectedItemColor: Colours.titleColor,
-        unselectedItemColor: Colours.titleColor,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(label: (" "),icon: ImageIcon(AssetImage('assets/bottom_bar/icon_search_back.png'),),),
-          BottomNavigationBarItem(label: (" "),icon:ImageIcon(AssetImage('assets/bottom_bar/icon_search_next.png'), ), ),
-          BottomNavigationBarItem(label: (" "),icon:ImageIcon(AssetImage('assets/bottom_bar/icon_search_home.png')), ),
-          BottomNavigationBarItem(label: (" "),icon:ImageIcon(AssetImage('assets/bottom_bar/icon_search_share.png')), ),
-          BottomNavigationBarItem(label: (" "),icon:ImageIcon(AssetImage('assets/bottom_bar/icon_search_more.png')), ),
-
-        ],
       ),
-    );
+
+      bottomNavigationBar:BottomContain(),
+
+
+
+        body: Builder(
+        builder: (BuildContext context) {
+          mContext=context;
+          return Container(
+            height: double.infinity,
+            decoration: new BoxDecoration(
+              color: Colors.red,
+            ),
+            child: Column(
+              children: [
+                Expanded(child: WebviewScaffold(
+                  key: _bottomSheetScaffoldKey,
+
+                  url: url,
+                  withJavascript: true,
+                  withLocalStorage: true,
+                  withZoom: false,
+                ),
+                ),
+              ],
+
+            )
+          );
+
+        }
+      ),
+      );
+
   }
 
   void backHome() {
@@ -142,4 +146,136 @@ class InfoDetail extends State<WebDetail>{
     super.dispose();
 
   }
+
+
+  _openBottomSheet() {
+
+
+    setState(() {
+      widget.type=1;
+    });
+
+//    showModalBottomSheet(
+//      context: mContext,
+//      builder: (context){
+//        return Container(
+//          width: 414,
+//          height: 300,
+//          color: Colors.red,
+//          alignment: Alignment.centerLeft,
+//          child: BottomMenu(),
+//        );
+//      },
+//    );
+
+//    Scaffold.of(mContext)
+//        .showBottomSheet<Null>((BuildContext context) {
+//       return BottomMenu();
+//    });
+  }
+
+  BottomContain() {
+    if(widget.type==0){
+      return BottomNavigationBar(
+
+          onTap: (int index) {
+            switch (index) {
+              case 1:
+                break;
+              case 2:
+                backHome();
+                break;
+              case 4:
+                setState(() {
+                  widget.type=1;
+                });
+                break;
+              default:
+                break;
+            }
+            setState(() {
+              //  this._currentIndex = index;
+            });
+          },
+          selectedFontSize: 12,
+          //fixedColor: Colours.titleColor,
+          selectedItemColor: Colours.titleColor,
+          unselectedItemColor: Colours.titleColor,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(label: (" "),
+              icon: ImageIcon(
+                AssetImage('assets/bottom_bar/icon_search_back.png'),),),
+            BottomNavigationBarItem(label: (" "),
+              icon: ImageIcon(
+                AssetImage('assets/bottom_bar/icon_search_next.png'),),),
+            BottomNavigationBarItem(label: (" "),
+              icon: ImageIcon(
+                  AssetImage('assets/bottom_bar/icon_search_home.png')),),
+            BottomNavigationBarItem(label: (" "),
+              icon: ImageIcon(
+                  AssetImage('assets/bottom_bar/icon_search_share.png')),),
+            BottomNavigationBarItem(label: (" "),
+              icon: ImageIcon(
+                  AssetImage('assets/bottom_bar/icon_search_more.png')),),
+
+          ],
+        );
+    }else{
+      return Container(
+        height: 120.0,
+        child: new Column(
+          children: <Widget>[
+            new Padding(
+              padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
+              child: new Container(
+                height: 60.0,
+                child: new GridView.builder(
+                  gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 5.0,
+                      childAspectRatio: 1.0),
+                  itemBuilder: (BuildContext context, int index) {
+                    return new Column(
+                      children: <Widget>[
+                        new Padding(
+                            padding: EdgeInsets.fromLTRB(0.0, 6.0, 0.0, 6.0),
+                            child: Icon(
+                              Icons.copy,
+                              size:20,
+                            )),
+                        new Text(nameItems[index])
+                      ],
+                    );
+                  },
+                  itemCount: nameItems.length,
+                ),
+              ),
+            ),
+            new Container(
+              height: 0.5,
+              color: Colors.blueGrey,
+            ),
+            new Center(
+              child: new Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
+                child: GestureDetector(
+                    onTap:(){
+                      widget.type=0;
+                      setState(() {
+
+                      });
+                    },
+                    child: new Text(
+                      '取  消',
+                      style: new TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                    )),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 }
+

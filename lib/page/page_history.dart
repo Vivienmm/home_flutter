@@ -76,7 +76,7 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
           IconButton(
             icon: Icon(Icons.clear),
-            onPressed: () {},
+            onPressed: () {_clearHistory();},
           ),
 
         ],) ,
@@ -109,6 +109,8 @@ class _HistoryPageState extends State<HistoryPage> {
 
     //historys.add(HistoryEntity.fromJson(jsonDecode(jsonEncode(s.toJson()))))));
   }
+
+  void _clearHistory() {}
 }
 
 class ContentView extends StatefulWidget{
