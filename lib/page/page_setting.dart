@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_flutter/http/net_api_constant.dart';
+import 'package:home_flutter/page/page_collection.dart';
 import 'package:home_flutter/page/page_history.dart';
 
 import 'page_web.dart';
@@ -48,6 +49,7 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBar(
+
         title: new Text('设置',style: TextStyle(color: Colours.titleColor),),
         leading: new Icon(Icons.arrow_back,color: Colours.titleColor,),
         backgroundColor: Colors.white,
@@ -72,7 +74,7 @@ class _SettingPageState extends State<SettingPage> {
                   verticalDirection: VerticalDirection.down,
                   children: <Widget>[
                     InfoCard("566","天","使用国搜"),
-                    InfoCard("566","篇","收藏列表"),
+                    InkWell(child: InfoCard("566","篇","收藏列表"),onTap:(){ Navigator.push(context, MaterialPageRoute( builder: (context) =>CollectionPage()));}),
                     InkWell(child: InfoCard("566","篇","浏览历史"),onTap:(){ Navigator.push(context, MaterialPageRoute( builder: (context) =>HistoryPage()));}),
 
                   ],

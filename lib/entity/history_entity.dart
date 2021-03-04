@@ -32,7 +32,6 @@ class HistoryEntity extends ISuspensionBean{
 
   @override
   String getSuspensionTag() {
-    print("getSuspensionTag"+date);
     return date;
   }
 }

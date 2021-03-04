@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:azlistview/azlistview.dart';
+import 'package:chinaso_ui_package/res.dart';
 import 'package:chinaso_ui_package/widget/empty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:home_flutter/entity/history_entity.dart';
@@ -68,7 +69,8 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar:AppBar(title: Text('浏览历史'), centerTitle: true,backgroundColor: Colors.black12,
+      appBar:AppBar(title: Text('浏览历史',style:TextStyle(color: Colours.titleColor),),
+        leading: new Icon(Icons.arrow_back,color: Colours.titleColor,),centerTitle: true,backgroundColor: Colors.white,
         actions: <Widget>[
           InkWell(
             child: Text("清空"),
@@ -101,13 +103,6 @@ class _HistoryPageState extends State<HistoryPage> {
     print("history-2"+s.toJson().toString());
     historys.add(s);
 
-    //Map<String, dynamic> responseDataInner =  jsonDecode(jsonEncode(responseData["data"]));
-   // HomeFeedEntity entity=new HomeFeedEntity();
-    //homeFeedEntityFromJson(entity,responseDataInner);
-
-   // print("history-3"+HistoryEntity.fromJson(jsonDecode(jsonEncode(s))).title);
-
-    //historys.add(HistoryEntity.fromJson(jsonDecode(jsonEncode(s.toJson()))))));
   }
 
   void _clearHistory() {}

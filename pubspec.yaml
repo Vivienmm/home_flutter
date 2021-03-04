@@ -119,3 +119,8 @@ flutter:
     - assets/bottom_bar/icon_search_next.png
     - assets/bottom_bar/icon_search_next_disable.png
     - assets/bottom_bar/icon_search_share.png
+    - assets/bottom_bar/more_collection_list.png
+    - assets/bottom_bar/more_collection.png
+    - assets/bottom_bar/more_collect_success.png
+    - assets/bottom_bar/more_copy_link.png
+    - assets/bottom_bar/more_refresh.png

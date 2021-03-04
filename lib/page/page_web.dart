@@ -17,7 +17,6 @@ class WebDetail extends StatefulWidget{
   String title;
   WebDetail({this.url,this.title});
 
-  int type=0;
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -27,16 +26,11 @@ class WebDetail extends StatefulWidget{
 }
 
 class InfoDetail extends State<WebDetail>{
-  List<String> nameItems = <String>[
-    '添加收藏',
-    '收藏列表',
-    '复制链接',
-    '刷新',
-  ];
+
   BuildContext mContext;
   Database dataBase;
   String url="https://guangdiu.com/api/showdetail.php";
-  final _bottomSheetScaffoldKey = GlobalKey<ScaffoldState>();
+  int type=0;
   String title="中国搜索";
   InfoDetail({this.url,this.title});
 
@@ -46,7 +40,8 @@ class InfoDetail extends State<WebDetail>{
     dataBase = await openDatabase(
       join(await getDatabasesPath(), Strings.CHINASO_DB),
       onCreate: (db, version) => db.execute(
-          "CREATE TABLE "+Strings.HISTORY_TABLE+" (title TEXT , webUrl TEXT PRIMARY KEY, date TEXT)"),
+         // "CREATE TABLE "+Strings.HISTORY_TABLE+" (title TEXT , webUrl TEXT PRIMARY KEY, date TEXT)"),
+          "CREATE TABLE "+Strings.HISTORY_TABLE+" (title TEXT , webUrl TEXT PRIMARY KEY)"),
       onUpgrade: (db, oldVersion, newVersion) {
         //dosth for migration
         print("old:$oldVersion,new:$newVersion");
@@ -80,58 +75,19 @@ class InfoDetail extends State<WebDetail>{
     });
     initDataBase();
 
-
-
-
   }
 
   @override
   Widget build(BuildContext context) {
-
+    mContext=context;
     // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 1,
-        backgroundColor: Colors.white,
-//            title: Text("详情页"),
-//            leading: IconButton(
-//                icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
-//                onPressed: (){
-//                  Navigator.pop(context);
-//                }),
-      ),
-
-      bottomNavigationBar:BottomContain(),
-
-
-
-        body: Builder(
-        builder: (BuildContext context) {
-          mContext=context;
-          return Container(
-            height: double.infinity,
-            decoration: new BoxDecoration(
-              color: Colors.red,
-            ),
-            child: Column(
-              children: [
-                Expanded(child: WebviewScaffold(
-                  key: _bottomSheetScaffoldKey,
-
+    return WebviewScaffold(
                   url: url,
                   withJavascript: true,
                   withLocalStorage: true,
                   withZoom: false,
-                ),
-                ),
-              ],
-
-            )
-          );
-
-        }
-      ),
-      );
+              bottomNavigationBar:BottomContain() ,
+                );
 
   }
 
@@ -143,39 +99,14 @@ class InfoDetail extends State<WebDetail>{
   void dispose() {
     // TODO: implement dispose
     dataBase.close();
+    flutterWebviewPlugin.close();
+    flutterWebviewPlugin.launch(url, hidden: true);
     super.dispose();
 
   }
 
-
-  _openBottomSheet() {
-
-
-    setState(() {
-      widget.type=1;
-    });
-
-//    showModalBottomSheet(
-//      context: mContext,
-//      builder: (context){
-//        return Container(
-//          width: 414,
-//          height: 300,
-//          color: Colors.red,
-//          alignment: Alignment.centerLeft,
-//          child: BottomMenu(),
-//        );
-//      },
-//    );
-
-//    Scaffold.of(mContext)
-//        .showBottomSheet<Null>((BuildContext context) {
-//       return BottomMenu();
-//    });
-  }
-
   BottomContain() {
-    if(widget.type==0){
+    if(type==0){
       return BottomNavigationBar(
 
           onTap: (int index) {
@@ -186,9 +117,10 @@ class InfoDetail extends State<WebDetail>{
                 backHome();
                 break;
               case 4:
-                setState(() {
-                  widget.type=1;
-                });
+                dataBase.close();
+                Navigator.pop(mContext);
+
+                Navigator.push(mContext, MaterialPageRoute(builder: (cx)=>BottomMenu(link:url,title: title,)));
                 break;
               default:
                 break;
@@ -222,60 +154,38 @@ class InfoDetail extends State<WebDetail>{
           ],
         );
     }else{
-      return Container(
-        height: 120.0,
-        child: new Column(
-          children: <Widget>[
-            new Padding(
-              padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
-              child: new Container(
-                height: 60.0,
-                child: new GridView.builder(
-                  gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      mainAxisSpacing: 5.0,
-                      childAspectRatio: 1.0),
-                  itemBuilder: (BuildContext context, int index) {
-                    return new Column(
-                      children: <Widget>[
-                        new Padding(
-                            padding: EdgeInsets.fromLTRB(0.0, 6.0, 0.0, 6.0),
-                            child: Icon(
-                              Icons.copy,
-                              size:20,
-                            )),
-                        new Text(nameItems[index])
-                      ],
-                    );
-                  },
-                  itemCount: nameItems.length,
-                ),
-              ),
-            ),
-            new Container(
-              height: 0.5,
-              color: Colors.blueGrey,
-            ),
-            new Center(
-              child: new Padding(
-                padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
-                child: GestureDetector(
-                    onTap:(){
-                      widget.type=0;
-                      setState(() {
+      return SafeArea(
 
-                      });
-                    },
-                    child: new Text(
-                      '取  消',
-                      style: new TextStyle(fontSize: 18.0, color: Colors.blueGrey),
-                    )),
-              ),
+          child:
+          Container(
+            decoration: new BoxDecoration(
+              color: Colors.transparent,
             ),
-          ],
-        ),
-      );
+           child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child:Material(
+                      color: Color(0x80000000),
+                      child:Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+
+                        ],
+                      ),
+                    ),
+                  ),
+                  Builder(
+
+                    builder:(BuildContext context) {
+                      return BottomMenu(link: url,title: title,);
+                    },
+                  )
+                ]),
+          ),
+    );
     }
   }
-}
 
+}
