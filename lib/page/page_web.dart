@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chinaso_ui_package/res.dart';
 import 'package:chinaso_ui_package/util/date_util.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:home_flutter/entity/history_entity.dart';
@@ -85,6 +86,11 @@ class InfoDetail extends State<WebDetail>{
   Widget build(BuildContext context) {
     mContext=context;
     // TODO: implement build
+//    return Scaffold(
+//
+//      bottomNavigationBar:BottomContain() ,
+//
+//    );
     return WebviewScaffold(
                   url: url,
                   withJavascript: true,
@@ -236,14 +242,49 @@ class InfoDetail extends State<WebDetail>{
         null,
         null,
         null,
-        SSDKContentTypes.webpage,
+        SSDKContentTypes.image,
       );
 
     SharesdkPlugin.showMenu(
         null, params2, (SSDKResponseState state, ShareSDKPlatform platform,
         Map userData, Map contentEntity, SSDKError error) {
-      //showAlert(state, error.rawData, context);
+      showAlert(state, error.rawData, mContext);
     });
+
   }
+
+
+    void showAlert(SSDKResponseState state, Map content, BuildContext context) {
+      print("--------------------------> state:" + state.toString());
+      String title = "失败";
+      switch (state) {
+        case SSDKResponseState.Success:
+          title = "成功";
+          break;
+        case SSDKResponseState.Fail:
+          title = "失败";
+          break;
+        case SSDKResponseState.Cancel:
+          title = "取消";
+          break;
+        default:
+          title = state.toString();
+          break;
+      }
+
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => CupertinoAlertDialog(
+              title: new Text(title),
+              content: new Text(content != null ? content.toString() : ""),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ]));
+    }
 
 }
