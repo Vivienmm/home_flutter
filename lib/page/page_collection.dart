@@ -71,16 +71,32 @@ class _CollectionPageState extends State<CollectionPage> {
     // TODO: implement build
     return Scaffold(
       appBar:AppBar(title: Text('收藏', style:TextStyle(color: Colours.titleColor)),
-        leading: new Icon(Icons.arrow_back,color: Colours.titleColor,),
+        leading: new IconButton(
+          icon: new Container(
+            padding: EdgeInsets.all(3.0),
+            child: new Icon(
+              Icons.arrow_back,color: Colours.titleColor,
+            ),
+          ),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
         centerTitle: true,backgroundColor: Colors.white,
         actions: <Widget>[
           InkWell(
-            child: Text("清空"),
-            onTap: () {},
+
+            child: Container(
+              alignment: Alignment.centerRight,
+              child: Text("清空",style:TextStyle(color: Colours.titleColor)),
+                ),
+            onTap: () {
+              _clearCollection();
+            },
           ),
           IconButton(
             icon: Icon(Icons.clear),
-            onPressed: () {_clearHistory();},
+            onPressed: () {_clearCollection();},
           ),
 
         ],) ,
@@ -111,7 +127,13 @@ class _CollectionPageState extends State<CollectionPage> {
 
   }
 
-  void _clearHistory() {}
+  void _clearCollection() {
+    dataBase.delete(Strings.COLLECT_TABLE);
+    setState(() {
+      collections.clear();
+    });
+
+  }
 }
 
 class ContentView extends StatefulWidget{

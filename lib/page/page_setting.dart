@@ -3,6 +3,7 @@
 import 'package:chinaso_ability/cache_manager.dart';
 import 'package:chinaso_ability/cache_setting.dart';
 import 'package:chinaso_ui_package/res.dart';
+import 'package:chinaso_ui_package/util/date_util.dart';
 import 'package:chinaso_ui_package/widget/info_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_flutter/http/net_api_constant.dart';
 import 'package:home_flutter/page/page_collection.dart';
 import 'package:home_flutter/page/page_history.dart';
+import 'package:home_flutter/utils/string_util.dart';
+import 'package:mmkv/mmkv.dart';
+import 'package:sqflite/sqflite.dart';
 
 import 'page_web.dart';
+import 'package:path/path.dart';
 
 class SettingPage extends StatefulWidget{
-
 
 
   @override
@@ -24,6 +28,9 @@ class SettingPage extends StatefulWidget{
 class _SettingPageState extends State<SettingPage> {
   BuildContext mContext;
   String cacheSize="0M";
+  String dayOff="0";
+  String collectionNum="0";
+  String hisNum="0";
 
    getCache()async {
     double value = await CacheManager.loadApplicationCache();
@@ -40,6 +47,9 @@ class _SettingPageState extends State<SettingPage> {
     // TODO: implement initState
     super.initState();
     getCache();
+    getDate();
+    getCollections();
+    getHistorys();
   }
   @override
   Widget build(BuildContext context) {
@@ -51,7 +61,19 @@ class _SettingPageState extends State<SettingPage> {
       appBar: new AppBar(
 
         title: new Text('设置',style: TextStyle(color: Colours.titleColor),),
-        leading: new Icon(Icons.arrow_back,color: Colours.titleColor,),
+        //leading: new Icon(Icons.arrow_back,color: Colours.titleColor,),
+        leading: new IconButton(
+          icon: new Container(
+            padding: EdgeInsets.all(3.0),
+            child: new Icon(
+              Icons.arrow_back,color: Colours.titleColor,
+            ),
+          ),
+          onPressed: (){
+           Navigator.pop(context);
+          },
+        ),
+
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -73,9 +95,9 @@ class _SettingPageState extends State<SettingPage> {
                   //就是字child的垂直布局方向，向上还是向下
                   verticalDirection: VerticalDirection.down,
                   children: <Widget>[
-                    InfoCard("566","天","使用国搜"),
-                    InkWell(child: InfoCard("566","篇","收藏列表"),onTap:(){ Navigator.push(context, MaterialPageRoute( builder: (context) =>CollectionPage()));}),
-                    InkWell(child: InfoCard("566","篇","浏览历史"),onTap:(){ Navigator.push(context, MaterialPageRoute( builder: (context) =>HistoryPage()));}),
+                    InfoCard(dayOff,"天","使用国搜"),
+                    InkWell(child: InfoCard(collectionNum,"篇","收藏列表"),onTap:(){ Navigator.push(context, MaterialPageRoute( builder: (context) =>CollectionPage()));}),
+                    InkWell(child: InfoCard(hisNum,"篇","浏览历史"),onTap:(){ Navigator.push(context, MaterialPageRoute( builder: (context) =>HistoryPage()));}),
 
                   ],
                 ),
@@ -136,6 +158,52 @@ class _SettingPageState extends State<SettingPage> {
     );
     setState(() {
       cacheSize="0M";
+    });
+  }
+
+  void getDate() {
+    var kv = MMKV.defaultMMKV();
+    String date=kv.decodeString("firstDate");
+    String days=DateUtil.getOffDays(date);
+
+    setState(() {
+      dayOff=days;
+    });
+  }
+
+  Future<void> getCollections() async {
+    Database dataBaseCol = await openDatabase(
+        join(await getDatabasesPath(), Strings.CHINASO_COL_DB),
+    onCreate: (db, version) => db.execute(
+    "CREATE TABLE "+Strings.COLLECT_TABLE+" (title TEXT , webUrl TEXT PRIMARY KEY)"),
+    onUpgrade: (db, oldVersion, newVersion) {
+    //dosth for migration
+    print("old:$oldVersion,new:$newVersion");
+    },
+    version: 1,
+    );
+    final List<Map<String, dynamic>> maps = await dataBaseCol.query(Strings.COLLECT_TABLE);
+    setState(() {
+      collectionNum= maps.length.toString();
+    });
+
+  }
+
+  Future<void> getHistorys() async {
+    Database dataBaseHis = await openDatabase(
+      join(await getDatabasesPath(), Strings.CHINASO_DB),
+      onCreate: (db, version) => db.execute(
+          "CREATE TABLE "+Strings.HISTORY_TABLE+" (title TEXT , webUrl TEXT PRIMARY KEY, date TEXT)"),
+      onUpgrade: (db, oldVersion, newVersion) {
+        //dosth for migration
+        print("old:$oldVersion,new:$newVersion");
+      },
+      version: 1,
+    );
+
+    final List<Map<String, dynamic>> mapsH = await dataBaseHis.query(Strings.HISTORY_TABLE);
+    setState(() {
+      hisNum= mapsH.length.toString();
     });
   }
 

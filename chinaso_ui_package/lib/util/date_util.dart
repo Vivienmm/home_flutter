@@ -37,4 +37,22 @@ class DateUtil {
     return formatDate(dateTime ,['yyyy', '-', 'mm', '-', 'dd']);
   }
 
+   static String getOffDays(String firstDay) {
+    int dayOff;
+
+//    Date now = new Date(System.currentTimeMillis());
+//    Date old = new Date(timeMills);
+//    dayOff = getGapCount(old, now);
+//    return dayOff + "";
+
+//    var d7 = new DateTime(2019, 6, 20, 15, 20);
+//    var difference = d7.difference(d6);
+
+    var now = new DateTime.now();
+     var  befor= DateTime.parse(firstDay);
+     print("dayoff-before"+befor.toString());
+     var difference=now.difference(befor);
+     return difference.inDays.toString();
+  }
+
 }

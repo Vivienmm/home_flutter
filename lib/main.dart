@@ -1,14 +1,17 @@
 
+import 'package:chinaso_ui_package/util/date_util.dart';
 import 'package:flutter/material.dart';
 import 'package:home_flutter/page/page_channel.dart';
 import 'package:home_flutter/page/page_home.dart';
 import 'package:home_flutter/page/page_media.dart';
 import 'package:home_flutter/utils/string_util.dart';
 import 'package:weather/citylist_page.dart';
+import 'package:mmkv/mmkv.dart';
 
 
-
-void main() {
+Future<void> main() async {
+  final rootDir = await MMKV.initialize();
+  print('MMKV for flutter with rootDir = $rootDir');
   runApp(MyApp());
 
 }
@@ -29,6 +32,29 @@ class _MyAppState extends State<MyApp> {
     MediaPage(),
     ChannelPage(),
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initPlatformState();
+  }
+  Future<void> initPlatformState() async {
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {});
+    var kv = MMKV.defaultMMKV();
+    bool isFirstUser=kv.decodeBool("isFirst");
+    if(!isFirstUser){
+      kv.encodeBool("isFirst",true);
+      kv.encodeString("firstDate",  DateUtil.getToday());
+    }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {

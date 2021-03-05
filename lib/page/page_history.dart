@@ -70,7 +70,18 @@ class _HistoryPageState extends State<HistoryPage> {
     // TODO: implement build
     return Scaffold(
       appBar:AppBar(title: Text('浏览历史',style:TextStyle(color: Colours.titleColor),),
-        leading: new Icon(Icons.arrow_back,color: Colours.titleColor,),centerTitle: true,backgroundColor: Colors.white,
+        leading: new IconButton(
+          icon: new Container(
+            padding: EdgeInsets.all(3.0),
+            child: new Icon(
+              Icons.arrow_back,color: Colours.titleColor,
+            ),
+          ),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,backgroundColor: Colors.white,
         actions: <Widget>[
           InkWell(
             child: Text("清空"),
