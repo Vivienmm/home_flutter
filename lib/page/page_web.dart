@@ -12,8 +12,10 @@ import 'package:sharesdk_plugin/sharesdk_register.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+/// * @author Suyw
+/// * @description: webView 加载页面
+/// * @date :2021/3/3
 class WebDetail extends StatefulWidget{
-
 
   String url;
   String title;
@@ -42,8 +44,7 @@ class InfoDetail extends State<WebDetail>{
     dataBase = await openDatabase(
       join(await getDatabasesPath(), Strings.CHINASO_DB),
       onCreate: (db, version) => db.execute(
-         // "CREATE TABLE "+Strings.HISTORY_TABLE+" (title TEXT , webUrl TEXT PRIMARY KEY, date TEXT)"),
-          "CREATE TABLE "+Strings.HISTORY_TABLE+" (title TEXT , webUrl TEXT PRIMARY KEY)"),
+          "CREATE TABLE "+Strings.HISTORY_TABLE+" (title TEXT , webUrl TEXT PRIMARY KEY, date TEXT)"),
       onUpgrade: (db, oldVersion, newVersion) {
         //dosth for migration
         print("old:$oldVersion,new:$newVersion");
@@ -124,8 +125,6 @@ class InfoDetail extends State<WebDetail>{
                   }
 
                 });
-
-
                 break;
               case 1:
                 if(flutterWebviewPlugin.canGoForward() != null){

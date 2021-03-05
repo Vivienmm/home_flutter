@@ -10,7 +10,7 @@ import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart';
 
 /// * @author Suyw
-/// * @description:
+/// * @description: 详情页底部bar
 /// * @date :2021/3/3
  class BottomMenu extends StatefulWidget{
    String link;
