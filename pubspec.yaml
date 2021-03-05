@@ -36,6 +36,7 @@ dependencies:
   date_format: ^1.0.9
   scroll_text: ^0.0.2
   flutter_webview_plugin: ^0.3.11
+  sharesdk_plugin:
   chinaso_ui_package:
     path: ./chinaso_ui_package
   chinaso_http_package:
