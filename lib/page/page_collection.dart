@@ -123,7 +123,7 @@ class _CollectionPageState extends State<CollectionPage> {
   deal(CollectionEntity s) {
     print("history-1"+s.webUrl);
     print("history-2"+s.toJson().toString());
-    collections.add(s);
+  //  collections.add(s);
 
   }
 

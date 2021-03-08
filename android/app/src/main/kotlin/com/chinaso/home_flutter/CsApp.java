@@ -14,10 +14,8 @@ public class CsApp extends FlutterApplication {
     public void onCreate() {
         super.onCreate();
 
+        //initShare
         FlutterLoopSharePrepare flutterLoopSharePrepare = new FlutterLoopSharePrepare();
         flutterLoopSharePrepare.prepare(this, MainActivity.class);
-
-        //ShareSDK.prepareLoopShare(new SharesdkPlugin.LoopshareListener());
-
     }
 }

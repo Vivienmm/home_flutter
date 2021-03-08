@@ -54,7 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
         hotWords.addAll(hots);
       });
 
-
     }).catchError((errorMsg) {
       /// 请求失败 dio异常
 
@@ -205,11 +204,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ? FloatingActionButton(
           onPressed: () {
             // scrollController 通过 animateTo 方法滚动到某个具体高度
-            // duration 表示动画的时长，curve 表示动画的运行方式，flutter 在 Curves 提供了许多方式
-            _scrollController.animateTo(0.0, duration: Duration(milliseconds: 500), curve: Curves.decelerate);
-            _showBackTop=false;
+            // duration 表示动画的时长，curve 表示动画的运行方式，flutter 在 Curves 提供了许多方
             setState(() {
-
+              _scrollController.animateTo(0.0, duration: Duration(milliseconds: 500), curve: Curves.decelerate);
+              _showBackTop=false;
             });
           },
           child: Icon(Icons.vertical_align_top),

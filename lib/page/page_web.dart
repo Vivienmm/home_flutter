@@ -4,6 +4,7 @@ import 'package:chinaso_ui_package/res.dart';
 import 'package:chinaso_ui_package/util/date_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:home_flutter/entity/history_entity.dart';
 import 'package:home_flutter/ui/bottom_web.dart';
@@ -86,18 +87,27 @@ class InfoDetail extends State<WebDetail>{
   Widget build(BuildContext context) {
     mContext=context;
     // TODO: implement build
-//    return Scaffold(
-//
-//      bottomNavigationBar:BottomContain() ,
-//
-//    );
-    return WebviewScaffold(
-                  url: url,
-                  withJavascript: true,
-                  withLocalStorage: true,
-                  withZoom: false,
-              bottomNavigationBar:BottomContain() ,
-                );
+    return Scaffold(
+
+      bottomNavigationBar:BottomContain() ,
+      body:SafeArea(
+        child:InAppWebView(
+            initialUrl: url,
+            onLoadStop:(InAppWebViewController controller, String url) {
+              controller.injectScriptCode("window.appSendJs('ETHBTC')"); //给引入的文件传值
+            }
+        ) ,
+      ),
+
+
+    );
+//    return WebviewScaffold(
+//                  url: url,
+//                  withJavascript: true,
+//                  withLocalStorage: true,
+//                  withZoom: false,
+//              bottomNavigationBar:BottomContain() ,
+//                );
 
   }
 
@@ -144,10 +154,24 @@ class InfoDetail extends State<WebDetail>{
                 shareFunc();
                     break;
               case 4:
-                dataBase.close();
-                Navigator.pop(mContext);
+                showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.circular(10)), //加圆角
+                    context: mContext,
+                    builder: (_) {
+                      return Container(
+                            height: 120,  //定义高度
+                        decoration: new BoxDecoration(
+                          color: Colors.transparent,
+                        ),
+                            child: BottomMenu(link: url,title: title,));
 
-                Navigator.push(mContext, MaterialPageRoute(builder: (cx)=>BottomMenu(link:url,title: title,)));
+
+                    });
+//                dataBase.close();
+//                Navigator.pop(mContext);
+//
+//                Navigator.push(mContext, MaterialPageRoute(builder: (cx)=>BottomMenu(link:url,title: title,)));
                 break;
               default:
                 break;

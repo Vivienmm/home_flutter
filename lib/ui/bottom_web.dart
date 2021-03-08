@@ -87,7 +87,7 @@ class BottomMoreMenu extends State<BottomMenu>{
             children: [
               Expanded(
                 child:Material(
-                  color: Color(0x80000000),
+                  color: Colors.blue,
                   child:Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +113,7 @@ class BottomMoreMenu extends State<BottomMenu>{
 
     return  Card(
     clipBehavior: Clip.hardEdge,
-    margin: const EdgeInsets.only(left: 8,  right: 8,bottom: 10),
+   // margin: const EdgeInsets.only(left: 8,  right: 8,bottom: 10),
     shape: const RoundedRectangleBorder(
     borderRadius: const BorderRadius.only(
     topLeft: Radius.circular(14.0),

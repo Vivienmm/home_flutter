@@ -112,7 +112,7 @@ class _HistoryPageState extends State<HistoryPage> {
   deal(HistoryEntity s) {
     print("history-1"+s.webUrl);
     print("history-2"+s.toJson().toString());
-    historys.add(s);
+    //historys.add(s);
 
   }
 
