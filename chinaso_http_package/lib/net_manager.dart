@@ -14,7 +14,7 @@ class NetUtil {
   static final baseUrl = host + '/api/';
 
   ///  基础信息配置
-  static final Dio _dio = new Dio(new Options(
+  static final Dio _dio = new Dio( BaseOptions(
       method: "get",
       baseUrl: baseUrl,
       connectTimeout: 5000,
@@ -115,11 +115,11 @@ class NetUtil {
     Options op;
 
     if (dataIsJson) {
-      op = new Options(contentType: ContentType.parse("application/json;charset=utf-8"),responseType: ResponseType.PLAIN);
+      op = new Options(contentType: "application/json;charset=utf-8",responseType: ResponseType.plain);
     } else {
 //      op = new Options(
 ////          contentType: ContentType.parse("application/x-www-form-urlencoded"));
-      op = new Options(contentType: ContentType.parse("application/json;charset=utf-8"),responseType: ResponseType.PLAIN);
+      op = new Options(contentType: "application/json;charset=utf-8",responseType: ResponseType.plain);
     }
 
     op.method = method;
@@ -151,7 +151,7 @@ class NetUtil {
 //    ));
     return _dio.get<String>(
         method == "get" ? uri : "$uri?token=$enToken",
-        data: data,
+        queryParameters:jsonDecode(data),
         options: op);
 
   }

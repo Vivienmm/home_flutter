@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:chinaso_http_package/net_manager.dart';
 
 import 'net_api_constant.dart';
@@ -12,12 +14,12 @@ class ApiInterface {
     /// 调用封装的NetUtil ，这里合理选择方法即可，比如请求体的方式传参数
     print('http--ss>------getFeed');
     return NetUtil.getJson(HttpConstant.FEED_HOME+'?pageNo=$pageNo',
-        {"pageNo":pageNo}.toString());
+        jsonEncode({"pageNo":pageNo}).toString());
   }
 
   static Future<String> getHotNews() async {
 
-    return NetUtil.getJson(HttpConstant.HOT_WORDS,{}.toString());
+    return NetUtil.getJson(HttpConstant.HOT_WORDS,jsonEncode({}).toString());
   }
 //  static Future<Map<String, dynamic>> getSmsCode(
 //      String flag, String phoneNum, String vefifyCode) async {

@@ -9,7 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_flutter/generated/json/hot_news_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
 import 'package:home_flutter/http/hot_news_entity.dart';
-import 'package:home_flutter/page/page_feed.dart';
+import 'package:home_flutter/page/home/page_feed.dart';
 import 'package:home_flutter/page/page_setting.dart';
 import 'package:home_flutter/ui/search_bar_delegate.dart';
 import 'package:weather/weather.dart';

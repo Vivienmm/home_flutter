@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:home_flutter/generated/json/home_feed_entity_helper.dart';
 import 'package:home_flutter/http/api_service.dart';
 import 'package:home_flutter/http/home_feed_entity.dart';
-import 'package:home_flutter/page/page_channel.dart';
+import 'package:home_flutter/page/home/page_channel.dart';
 import 'package:home_flutter/page/page_web.dart';
 
 

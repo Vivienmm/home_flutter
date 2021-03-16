@@ -1,9 +1,9 @@
 
 import 'package:chinaso_ui_package/util/date_util.dart';
 import 'package:flutter/material.dart';
-import 'package:home_flutter/page/page_channel.dart';
-import 'package:home_flutter/page/page_home.dart';
-import 'package:home_flutter/page/page_media.dart';
+import 'package:home_flutter/page/home/page_channel.dart';
+import 'package:home_flutter/page/home/page_home.dart';
+import 'package:home_flutter/page/media/page_media.dart';
 import 'package:home_flutter/utils/string_util.dart';
 import 'package:weather/citylist_page.dart';
 import 'package:mmkv/mmkv.dart';
