@@ -28,11 +28,13 @@ class _MediaPage2State extends State<MediaPage2> with TickerProviderStateMixin{
   PageController _pageController;
   int _pageIndex=0;
   List<String> _titleList = <String>['微博','微信', '新华号', '人民号', '澎湃号'];
+  List<String> _typeQueryList = <String>['0','1', '3', '4', '5'];
   var _scrollController = ScrollController();
   OverlayEntry _overlayEntry;
 
   OverlayEntry createHeaderPopupWindow(int typeIndex) {
     List<String> _typeList = <String>['微博','微信', '新华号', '人民号', '澎湃号'];
+
 
 
     OverlayEntry overlayEntry = new OverlayEntry(builder: (context) {
@@ -168,7 +170,7 @@ class _MediaPage2State extends State<MediaPage2> with TickerProviderStateMixin{
               onPageChanged: _onPageChanged,
               itemCount: _titleList.length,
               itemBuilder: (context, index) {
-                return MediaNewsPage(type: index.toString());
+                return MediaNewsPage(type: _typeQueryList[index]);
               }
           ),
         ),),

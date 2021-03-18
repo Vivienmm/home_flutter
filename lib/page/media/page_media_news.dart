@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:home_flutter/entity/media_entity.dart';
+import 'package:home_flutter/http/chinaso_net_new.dart';
 import 'package:home_flutter/ui/media_itm_tab.dart';
 import 'package:home_flutter/utils/tab_child.dart';
 
@@ -12,6 +16,7 @@ import 'package:home_flutter/utils/tab_child.dart';
    MediaNewsPage({Key key,this.type}) : assert(type != null),super(key: key);
 
    String type;
+   
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createStareturn  throw UnimplementedError();
@@ -22,6 +27,8 @@ import 'package:home_flutter/utils/tab_child.dart';
 
 class MediaNewsPageState extends State<MediaNewsPage> with SingleTickerProviderStateMixin{
    String mediaType;
+   List<MediaData> mediaList=new List();
+
    MediaNewsPageState({this.mediaType});
    TabController _tabController;
 
@@ -29,52 +36,55 @@ class MediaNewsPageState extends State<MediaNewsPage> with SingleTickerProviderS
   void initState() {
     // TODO: implement initState
     super.initState();
-    this._tabController = new TabController(vsync: this, length: 5);
-    this._tabController.addListener(() {
-      setState(() {
 
-      });
-//      print(this._tabController.toString());
-//      print(this._tabController.index);
-//      print(this._tabController.length);
-//      print(this._tabController.previousIndex);
-    });
+    getMedia(mediaType);
   }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.red,
           title: TabBar(
             controller: this._tabController,
-            tabs: <Widget>[
-              MediaItemTab(child:
-              ClipOval(
-                child: Image.network(
-                  "https://tva1.sinaimg.cn/large/006y8mN6gy1g7aa03bmfpj3069069mx8.jpg",
-                  width: 20,
-                  height: 20,
-                ),
-              ),),
-              MediaItemTab(child: TabChild(tabTitle: "女装",iconUrl: "https://tva1.sinaimg.cn/large/006y8mN6gy1g7aa03bmfpj3069069mx8.jpg",),),
-              MediaItemTab(text: '童装'),
-              MediaItemTab(text: '夏装'),
-              MediaItemTab(text: '冬装'),
-            ],
+            isScrollable:true,
+            tabs: TabWidgets(),),
           ),
-        ),
         body:ListViewContnet(index:this._tabController.index));
-//        body: TabBarView(
-//          controller: this._tabController,
-//          children: <Widget>[
-//            ListViewContnet(),
-//            ListViewContnet(),
-//            ListViewContnet(),
-//            ListViewContnet(),
-//            ListViewContnet(),
-//          ],
-//        ));
+
+  }
+
+  void getMedia(String mediaType) async {
+     
+    await ChinasoRequest(context).getMediaList("general/v1/om/media/list",queryParameters: {"type":mediaType}) .then((list) => list.forEach((s) => mediaList.add(s)));
+
+    setState(() {
+      this._tabController = new TabController(vsync: this, length: mediaList.length);
+
+
+      this._tabController.addListener(()  {
+        setState(() {
+
+        });
+//      print(this._tabController.toString());
+//      print(this._tabController.index);
+//      print(this._tabController.length);
+//      print(this._tabController.previousIndex);
+
+      });
+    });
+
+  }
+
+  TabWidgets() {
+    List<Widget> widgets=new List();
+
+    for (int i=0;i<mediaList.length;i++){
+      print("TabWidgets"+mediaList[i].dataName);
+      widgets.add(MediaItemTab(child: TabChild(tabTitle: mediaList[i].dataName,iconUrl: mediaList[i].dataIcon ),));
+    }
+
+    return widgets;
   }
 
 }

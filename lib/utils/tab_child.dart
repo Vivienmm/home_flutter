@@ -14,6 +14,7 @@ class TabChild extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
    return Column(
+
      children: [
        ClipOval(
          child: Image.network(
