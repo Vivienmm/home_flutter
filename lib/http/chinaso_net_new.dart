@@ -71,7 +71,7 @@ import 'package:home_flutter/generated/json/media_news_entity_helper.dart';
 
      MediaEntity mediaEntity=new MediaEntity();
 
-     mediaEntityFromJson(mediaEntity,jsonDecode(r.toString()))
+     mediaEntityFromJson(mediaEntity,jsonDecode(r.toString()));
      return mediaEntity.data;
    }
 
@@ -94,10 +94,10 @@ import 'package:home_flutter/generated/json/media_news_entity_helper.dart';
        options: _options,
      );
 
-     MediaNewsData mediaEntity=new MediaNewsData();
 
-     mediaNewsDataFromJson(mediaEntity,jsonDecode(r.data.toString()));
-     return mediaEntity.data;
+     MediaNewsEntity mediaNewsEntity=new MediaNewsEntity();
+     mediaNewsEntityFromJson(mediaNewsEntity,jsonDecode(r.toString()));
+     return mediaNewsEntity.data.data;
    }
 
  }

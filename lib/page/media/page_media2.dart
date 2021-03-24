@@ -74,23 +74,21 @@ class _MediaPage2State extends State<MediaPage2> with TickerProviderStateMixin{
       // 当滚动距离大于 800 后，显示回到顶部按钮
       print("滚动--"+_scrollController.position.pixels.toString());
       if(_scrollController.position.pixels >= 40) {
-        print("显示");
+
         if(null!=_overlayEntry){
 
         }else{
           _overlayEntry=createHeaderPopupWindow(_pageIndex) ;
           WidgetsBinding.instance.addPostFrameCallback((_) =>  Overlay.of(context).insert(_overlayEntry));
         }
+
       }else{
 
           if (_overlayEntry != null) {
             _overlayEntry.remove();
             _overlayEntry = null;
           }
-
       }
-
-      //   setState(() => _showBackTop = _scrollController.position.pixels >= 800);
     });
   }
 
@@ -120,7 +118,32 @@ class _MediaPage2State extends State<MediaPage2> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: SingleChildScrollView(
+//      body: NotificationListener<ScrollNotification>(
+//        onNotification: (notification) {
+//      //滑动指示器是否在头部 true在前端，false在末端
+//      print("su-out-scroll"+'${notification.metrics.extentBefore}');
+//
+//      if(notification.metrics.extentBefore >= 40) {
+//        if(null!=_overlayEntry){
+//
+//        }else{
+//          _overlayEntry=createHeaderPopupWindow(_pageIndex) ;
+//          WidgetsBinding.instance.addPostFrameCallback((_) =>  Overlay.of(context).insert(_overlayEntry));
+//        }
+//        return true;
+//      }else{
+//
+//        if (_overlayEntry != null) {
+//          _overlayEntry.remove();
+//          _overlayEntry = null;
+//        }
+//        return false;
+//      }
+//
+//      },
+//    child:
+    body:SingleChildScrollView(
+        key: UniqueKey(),
         scrollDirection: Axis.vertical,
         physics: BouncingScrollPhysics(),
         controller: _scrollController,
@@ -182,24 +205,4 @@ class _MediaPage2State extends State<MediaPage2> with TickerProviderStateMixin{
   }
 }
 
-class BarContainer extends StatelessWidget {
-  final bool show;
-
-  const BarContainer({Key key, this.show}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    if(show){
-      return Container(
-        height: 40,
-        color: Colors.red,
-      );
-    }else{
-      return Container(
-        height: 1,
-      );
-    }
-  }
-}
 

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_flutter/entity/media_entity.dart';
 import 'package:home_flutter/http/chinaso_net_new.dart';
+import 'package:home_flutter/page/media/page_media_feed.dart';
 import 'package:home_flutter/ui/media_itm_tab.dart';
 import 'package:home_flutter/utils/tab_child.dart';
 
@@ -29,6 +30,8 @@ class MediaNewsPageState extends State<MediaNewsPage> with SingleTickerProviderS
    String mediaType;
    List<MediaData> mediaList=new List();
 
+   int tabLength=0;
+
    MediaNewsPageState({this.mediaType});
    TabController _tabController;
 
@@ -46,11 +49,13 @@ class MediaNewsPageState extends State<MediaNewsPage> with SingleTickerProviderS
         appBar: AppBar(
           backgroundColor: Colors.red,
           title: TabBar(
+
             controller: this._tabController,
             isScrollable:true,
             tabs: TabWidgets(),),
           ),
-        body:ListViewContnet(index:this._tabController.index));
+       // body:FeedMediaNews(newsType:mediaType));
+        body:FeedMediaNews(newsType: "weibo",));
 
   }
 
@@ -59,9 +64,10 @@ class MediaNewsPageState extends State<MediaNewsPage> with SingleTickerProviderS
     await ChinasoRequest(context).getMediaList("general/v1/om/media/list",queryParameters: {"type":mediaType}) .then((list) => list.forEach((s) => mediaList.add(s)));
 
     setState(() {
-      this._tabController = new TabController(vsync: this, length: mediaList.length);
 
-
+      tabLength=mediaList.length;
+      print("widget-size-"+tabLength.toString());
+      this._tabController = new TabController(vsync: this, length: 10);
       this._tabController.addListener(()  {
         setState(() {
 
@@ -77,45 +83,32 @@ class MediaNewsPageState extends State<MediaNewsPage> with SingleTickerProviderS
   }
 
   TabWidgets() {
-    List<Widget> widgets=new List();
 
-    for (int i=0;i<mediaList.length;i++){
-      print("TabWidgets"+mediaList[i].dataName);
-      widgets.add(MediaItemTab(child: TabChild(tabTitle: mediaList[i].dataName,iconUrl: mediaList[i].dataIcon ),));
+    List<Widget> widgets = [
+  ];
+
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+//    widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[0].dataName,iconUrl: mediaList[0].dataIcon )),);
+
+//    List<MediaItemTab> widgets=new List<MediaItemTab>();
+//
+
+      for (int i=0;i<10;i++){
+
+        widgets.add( MediaItemTab(child: TabChild(tabTitle: mediaList[i].dataName,iconUrl: mediaList[i].dataIcon )),);
     }
 
     return widgets;
   }
 
-}
-
-class ListViewContnet extends StatelessWidget {
-   final int index;
-  const ListViewContnet({Key key,this.index}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: new NeverScrollableScrollPhysics(),
-      children: <Widget>[
-        ListTile(title: Text("TITLE"+index.toString())),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-        ListTile(title: Text("TITLE")),
-      ],
-    );
-  }
 }

@@ -13,18 +13,20 @@ class TabChild extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-   return Column(
+   return Container(
+     child:Column(
 
-     children: [
-       ClipOval(
-         child: Image.network(
-           "https://tva1.sinaimg.cn/large/006y8mN6gy1g7aa03bmfpj3069069mx8.jpg",
-           width: 20,
-           height: 20,
+       children: [
+         ClipOval(
+           child: Image.network(
+             "https://tva1.sinaimg.cn/large/006y8mN6gy1g7aa03bmfpj3069069mx8.jpg",
+             width: 20,
+             height: 20,
+           ),
          ),
-       ),
-       Text(tabTitle),
-     ],
+         Text(tabTitle),
+       ],
+     ) ,
    );
   }
 

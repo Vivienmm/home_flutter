@@ -5,6 +5,8 @@ import 'package:home_flutter/page/home/page_channel.dart';
 import 'package:home_flutter/page/home/page_home.dart';
 import 'package:home_flutter/page/media/page_media.dart';
 import 'package:home_flutter/page/media/page_media2.dart';
+import 'package:home_flutter/page/media/page_media_feed.dart';
+import 'package:home_flutter/page/media/page_media_news.dart';
 import 'package:home_flutter/utils/string_util.dart';
 import 'package:weather/citylist_page.dart';
 import 'package:mmkv/mmkv.dart';
@@ -31,7 +33,7 @@ class _MyAppState extends State<MyApp> {
   List<Widget> _pageList = [
     MyHomePage(),
     MediaPage2(),
-    ChannelPage(),
+    FeedMediaNews(newsType: "weibo",),
   ];
 
   @override
