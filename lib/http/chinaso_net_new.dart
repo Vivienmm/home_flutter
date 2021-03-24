@@ -97,6 +97,7 @@ import 'package:home_flutter/generated/json/media_news_entity_helper.dart';
 
      MediaNewsEntity mediaNewsEntity=new MediaNewsEntity();
      mediaNewsEntityFromJson(mediaNewsEntity,jsonDecode(r.toString()));
+     print("medisss-"+mediaNewsEntity.data.data[0].title);
      return mediaNewsEntity.data.data;
    }
 

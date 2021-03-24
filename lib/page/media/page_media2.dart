@@ -118,36 +118,42 @@ class _MediaPage2State extends State<MediaPage2> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
     return Scaffold(
 
-//      body: NotificationListener<ScrollNotification>(
-//        onNotification: (notification) {
-//      //滑动指示器是否在头部 true在前端，false在末端
-//      print("su-out-scroll"+'${notification.metrics.extentBefore}');
-//
-//      if(notification.metrics.extentBefore >= 40) {
-//        if(null!=_overlayEntry){
-//
-//        }else{
-//          _overlayEntry=createHeaderPopupWindow(_pageIndex) ;
-//          WidgetsBinding.instance.addPostFrameCallback((_) =>  Overlay.of(context).insert(_overlayEntry));
-//        }
-//        return true;
-//      }else{
-//
-//        if (_overlayEntry != null) {
-//          _overlayEntry.remove();
-//          _overlayEntry = null;
-//        }
-//        return false;
-//      }
-//
-//      },
-//    child:
-    body:SingleChildScrollView(
-        key: UniqueKey(),
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+      //滑动指示器是否在头部 true在前端，false在末端
+
+      if(notification.metrics.extentBefore >= 50) {
+
+
+        if(null!=_overlayEntry){
+
+        }else{
+          _overlayEntry=createHeaderPopupWindow(_pageIndex) ;
+          WidgetsBinding.instance.addPostFrameCallback((_) =>  Overlay.of(context).insert(_overlayEntry));
+        }
+        return true;
+      }else{
+
+        if (_overlayEntry != null) {
+          _overlayEntry.remove();
+          _overlayEntry = null;
+        }
+        return false;
+      }
+
+      },
+    child:NestedScrollView(
+      key: UniqueKey(),
         scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
+       // physics: BouncingScrollPhysics(),
         controller: _scrollController,
-        child:Column(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return [
+          _mySliverAppBar(),
+        ];
+      },
+        body:Column(
+
           mainAxisSize:MainAxisSize.min,
 
       children: [
@@ -199,10 +205,21 @@ class _MediaPage2State extends State<MediaPage2> with TickerProviderStateMixin{
         ),),
 
       ],
-    ),),);
+    ),),),);
 
 
   }
+
+  _mySliverAppBar() {
+    return SliverAppBar(
+      title: Text('NestedScrollView'),
+      expandedHeight: 20,
+      flexibleSpace: FlexibleSpaceBar(
+        collapseMode: CollapseMode.parallax,
+      ),
+    );
+  }
+
 }
 
 

@@ -43,6 +43,7 @@ class FeedMediaNewsState extends State<FeedMediaNews> {
    void _getData() async {
      await ChinasoRequest(context).getMediaCommonNewsList('general/v1/search',queryParameters: {"accountid":2803301701,"start_index":mCurPage}) .then((list)  => _newsList.addAll(list));
 
+     isloadingMore=false;
      setState(() {
 
 
@@ -73,17 +74,19 @@ class FeedMediaNewsState extends State<FeedMediaNews> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-//    body:  NotificationListener<ScrollNotification>(
-//      onNotification: (ScrollNotification scrollInfo) =>
-//          _onScrollNotification(scrollInfo),
-      body:_newsList.length > 0
+    return Container(
+        child:NotificationListener<ScrollNotification>(
+      onNotification: (ScrollNotification scrollInfo) =>
+          _onScrollNotification(scrollInfo),
+      child:_newsList.length > 0
         ? RefreshIndicator(
       child:
+          Container(
+            child:
 ListView.builder(
-        shrinkWrap: true,
-        controller: _scrollController,
-        //physics: new NeverScrollableScrollPhysics(),
+       // shrinkWrap: true,
+       // controller: _scrollController,
+      //  physics: new NeverScrollableScrollPhysics(),
         itemCount: _newsList.length+1,
         itemBuilder: (context, index) {
       if (index == _newsList.length) {
@@ -96,7 +99,7 @@ ListView.builder(
                 maxLines: 1,
               ),
               leading: Image.network(
-                _newsList[index].imageList[0],
+                _newsList[0].imageList[0],
                 fit: BoxFit.cover,
                 width: 80,
                 height: 80,
@@ -108,31 +111,31 @@ ListView.builder(
           ],);
       }
         },
-      ),
+      ),),
 
       onRefresh: _onRefresh,
+
     ): Footer(
-        isloadingMore: true, ishasMore: true),);
+        isloadingMore: isloadingMore, ishasMore: ishasMore),));
   }
 
 
    _onScrollNotification(ScrollNotification scrollInfo) {
 
-     print("su-in-scroll"+scrollInfo.metrics.extentBefore.toString());
-     if(scrollInfo.metrics.extentBefore<50){
 
-       return false;
-     }else{
        var maxScroll = scrollInfo.metrics.maxScrollExtent;
        var pixels = scrollInfo.metrics.pixels;
        if (maxScroll == pixels) {
          if (!isloadingMore) {
+           print("medisss-mCurPage-isloadingMore"+mCurPage.toString());
            if (ishasMore) {
              setState(() {
                isloadingMore = true;
                mCurPage += 1;
              });
              Future.delayed(Duration(seconds: 3), () {
+               print("medisss-mCurPage"+mCurPage.toString());
+
                _getData();
              });
            } else {
@@ -142,9 +145,7 @@ ListView.builder(
            }
          }
        }
-       return true;
-
-     }
+       return false;
 
    }
 }
